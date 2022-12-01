@@ -1,0 +1,23 @@
+---
+title: "About Me"
+about:
+  template: trestles
+  image: mystuff/ravi-profile.png
+  links:
+    - icon: twitter
+      text: twitter
+      href: https://twitter.com/Ravi_CRT
+    - icon: linkedin
+      text: Linkedin
+      href: https://www.linkedin.com/in/ravi-teja-b504aba7/
+    - icon: github
+      text: Github
+      href: https://github.com/ravich3373
+---
+
+Starting Fall'22 I am a Master's student at New York University. 
+
+Previously I was a computer vision engineer at [Vimaan](https://vimaan.ai/), where I've mostly worked on [event tracking](https://vimaan.ai/inventory-tracking-products/picktrack/).
+
+
+

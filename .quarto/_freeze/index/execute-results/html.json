@@ -1,0 +1,11 @@
+{
+  "hash": "ab218c5e796b9262c09c1353abe4f6c1",
+  "result": {
+    "markdown": "---\ntitle: \"About Me\"\n---\n\nStarting Fall'22 I am a Master's student at New York University. \n\n::: {.cell execution_count=1}\n``` {.python .cell-code}\nimport cv2\nimport matplotlib.pyplot as plt\n\nimg = cv2.imread(\"mystuff/ravi-profile.png\")\nplt.imshow(img)\n```\n\n::: {.cell-output .cell-output-display execution_count=1}\n```\n<matplotlib.image.AxesImage at 0x7f26036ae1c0>\n```\n:::\n\n::: {.cell-output .cell-output-display}\n![](index_files/figure-html/cell-2-output-2.png){width=424 height=416}\n:::\n:::\n\n\n",
+    "supporting": [
+      "index_files"
+    ],
+    "filters": [],
+    "includes": {}
+  }
+}

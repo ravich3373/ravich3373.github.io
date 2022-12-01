@@ -1,0 +1,21 @@
+project:
+  type: website
+  output-dir: docs
+
+website:
+  title: "Raviteja Chukkapalli"
+  image: mystuff/ravi-profile.png
+  navbar:
+    left:
+      - href: index.qmd
+        text: Home
+      - resume.qmd
+
+format:
+  html:
+    theme: cosmo
+    css: styles.css
+    toc: true
+
+
+
