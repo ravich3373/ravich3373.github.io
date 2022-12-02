@@ -10,7 +10,8 @@ website:
       - href: index.qmd
         text: Home
       - resume.qmd
-
+    right:
+      - notes.qmd
 format:
   html:
     theme: cosmo

@@ -1,9 +1,37 @@
 [
   {
+    "objectID": "notes/MDP.html#mdp",
+    "href": "notes/MDP.html#mdp",
+    "title": "Markov Decision Processes",
+    "section": "MDP",
+    "text": "MDP\n\nProblems in which there is uncertainity in the environemnt so you can not run the usual search algorithms. we use MDPs.\nWe can formalize problems with uncertainity as an MDP.\nPolicy -> what to do from the current state, i.e, which state to move to next. a map from every state to the next state.\nSolution of an MDP is a policy.\nTo represent the problem as a graph we use states as nodes and then we use a new type of node called a chance node to represent the uncertainity.\nTODO: Comparision of search and MDP problem formulations. (at 19:18)"
+  },
+  {
+    "objectID": "notes/MDP.html#policy-evaluation-how-good-is-a-policy",
+    "href": "notes/MDP.html#policy-evaluation-how-good-is-a-policy",
+    "title": "Markov Decision Processes",
+    "section": "[[Policy evaluation]]: How good is a policy?",
+    "text": "[[Policy evaluation]]: How good is a policy?\n\nFollowing a policy yields a random path(due to randomness in env). The [[utility]] of a policy is the discounted sum of the rewards on this path. The [[value]] of a policy is the [[expected utility]] of the policy.\nvalue is defined for each node.\nValue of a policy \\(V_{p}\\) (s) = expected utility by following policy p from state s.\n[[Q-value]] of a policy \\(Q_p\\) (s, a) = expected utility of taking action a from state s and then following policy p.\nQ-value is expected utility from chance node.\n\\(V_p\\) (s) = {0 if IsEnd(s) = True or \\(Q_p\\)(s, a)} where a = Policy(s).\n\\(Q_p\\)(s, a) = \\(\\sum_{s'}^{}\\) T(s, a, s’) * [R(s, a, s’) + \\(\\gamma\\) * \\(V_p\\)(s’)]\nSometimes \\(V_p\\) from the above equations gives a [[closed form]] equation. here we solve directly.\nSometimes The equations becomes reccursive. Then we assign intiial values of all states to 0 and iterate on the equations for every state to get value of the state in next time step and continue the process for a fixed number of iterations or until the delta is less than some value(convergence)."
+  },
+  {
+    "objectID": "notes/MDP.html#optimal-value",
+    "href": "notes/MDP.html#optimal-value",
+    "title": "Markov Decision Processes",
+    "section": "[[Optimal value]]:",
+    "text": "[[Optimal value]]:\n\n\\(V_{opt}\\) (s) = maximim value atttained by any policy.\n. \\(Q_{opt}\\)(s, a) = \\(\\sum_{s'}^{}\\) T(s, a, s’) * [R(s, a, s’) + \\(\\gamma\\) * \\(V_{opt}\\)(s’)]\n\\(V_{opt}\\)(s,a) = {0 of IsEnd(s) = True , \\(max_{actions(s)}\\) \\(Q_{opt}\\) (s, a)}\nThis mean optimal policy \\(P_{opt}\\) (s) = \\[argmax_{a \\in actions} Q_{opt} (s, a)\\]\nThis is [[value iteration]]."
+  },
+  {
     "objectID": "index.html",
     "href": "index.html",
     "title": "About Me",
     "section": "",
     "text": "Starting Fall’22 I am a Master’s student at New York University.\nPreviously I was a computer vision engineer at Vimaan, where I’ve mostly worked on event tracking."
+  },
+  {
+    "objectID": "notes.html",
+    "href": "notes.html",
+    "title": "Notes",
+    "section": "",
+    "text": "Markov Decision Processes\n\n\n\n\n\n\n\nclassical AI\n\n\n\n\nModelling using MDPs, Policy Evaluation and Value Iteration.\n\n\n\n\n\n\nDec 2, 2022\n\n\n\n\n\n\nNo matching items"
   }
 ]
