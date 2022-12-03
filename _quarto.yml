@@ -3,6 +3,12 @@ project:
   output-dir: docs
 
 website:
+  google-analytics: 
+    tracking-id: "G-6C8LEPK16T"
+    version: 4
+    storage: cookies
+    anonymize-ip: true
+
   title: "Raviteja Chukkapalli"
   image: mystuff/ravi-profile.png
   navbar:
@@ -12,6 +18,7 @@ website:
       - resume.qmd
     right:
       - notes.qmd
+
 format:
   html:
     theme: cosmo
