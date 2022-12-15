@@ -1,8 +1,12 @@
 [
   {
     "listing": "/notes.html",
+    "items": []
+  },
+  {
+    "listing": "/posts.html",
     "items": [
-      "/notes/MDP.html"
+      "/posts/mdp.html"
     ]
   }
 ]

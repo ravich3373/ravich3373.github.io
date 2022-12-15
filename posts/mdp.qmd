@@ -1,0 +1,69 @@
+---
+title: "Plan a trip!"
+image: assets/publishing_decision_tree.png
+date: last-modified
+date-format: long
+categories:
+    - classical AI
+    - Interactive
+description: ""
+jupyter: python3
+format: html
+execute:
+  echo: false
+---
+
+<img src="assets/coming_soon/coming_soon.jpg" alt="drawing" width="200"/>
+
+### Rules
+
+* <span style="color:#ffb400">S</span> is the starting location
+* <span style="color:#00a6ed">Blue</span> suqares represent a river. Which you can cross using a bridge with some probability of getting stuck in the traffic and not reaching D.
+* <span style="color:#f6511d">D</span> is the destination.
+* Use input boxes on the right to set a reward for reaching the location.
+* The arrows on the left map represent the optimal policy for a traveller going from S to D and collecting as much reward as possible on the way.
+
+```{python}
+from ipywidgets import FloatText, HBox, VBox, Layout, Text, GridBox, Button
+import random
+
+sz = 5
+
+arrows = {"l": "\u2190", "r": "\u2192", "u": "\u2191", "d": "\u2193"}
+inp = []
+op = []
+for i in range(sz*sz):
+  bx = FloatText(
+      value=0,
+      description="",
+      disabled=False,
+      layout=Layout(width='50px', height='40px')
+  )
+  inp.append(bx)
+
+for i in range(sz*sz):
+  bx = Button(
+      description=random.choice(list(arrows.values())),
+      disabled=False,
+      layout=Layout(width='40px', height='40px')
+    )
+  if i in [8,12,16]:
+    bx.style.button_color = '#00a6ed'
+    bx.disabled = True
+    bx.description = "\u2193"
+  if i ==0:
+    bx.style.button_color = '#ffb400'
+    bx.description = "S"
+  if i ==24:
+    bx.style.button_color = '#f6511d'
+    bx.description = "D"
+  op.append(bx)
+
+inp_g = GridBox(inp, layout=Layout(grid_template_columns="repeat(5, 60px)"))
+
+op_g = GridBox(op, layout=Layout(grid_template_columns="repeat(5, 50px)"))
+
+HBox([op_g, inp_g])
+
+
+```

@@ -1,0 +1,10 @@
+---
+title: "Posts"
+listing:
+    contents: posts
+    type: default
+    sort: "date desc"
+    categories: true
+page-layout: full
+title-block-banner: true
+---

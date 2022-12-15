@@ -6,6 +6,7 @@ date-format: long
 categories:
     - classical AI
 description: "Modelling using MDPs, Policy Evaluation and Value Iteration."
+draft: true
 ---
 
 <img src="assets/publishing_decision_tree.png" alt="MDP as a Graph" width="600"/>

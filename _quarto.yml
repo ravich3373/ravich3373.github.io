@@ -1,6 +1,9 @@
 project:
   type: website
   output-dir: docs
+  render:
+    - "*.qmd"
+    - "!exps/"
 
 website:
   google-analytics: 
@@ -15,9 +18,9 @@ website:
     left:
       - href: index.qmd
         text: Home
-      - resume.qmd
     right:
       - notes.qmd
+      - posts.qmd
 
 format:
   html:

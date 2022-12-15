@@ -1,0 +1,87 @@
+---
+title: "wid"
+image: assets/publishing_decision_tree.png
+date: last-modified
+date-format: long
+categories:
+    - classical AI
+jupyter: python3
+format: html
+execute:
+  echo: false
+draft: true
+---
+
+
+
+```{python}
+from ipywidgets import Image
+
+from ipywidgets import ColorPicker, IntSlider, link, AppLayout, HBox
+
+from ipycanvas import RoughCanvas, hold_canvas
+
+
+width = 1000
+height = 1000
+
+canvas = RoughCanvas(width=width, height=height)
+
+drawing = False
+position = None
+shape = []
+
+
+def on_mouse_down(x, y):
+    global drawing
+    global position
+    global shape
+
+    drawing = True
+    position = (x, y)
+    shape = [position]
+
+
+def on_mouse_move(x, y):
+    global drawing
+    global position
+    global shape
+
+    if not drawing:
+        return
+
+    with hold_canvas():
+        canvas.stroke_line(position[0], position[1], x, y)
+
+        position = (x, y)
+
+    shape.append(position)
+
+
+def on_mouse_up(x, y):
+    global drawing
+    global position
+    global shape
+
+    drawing = False
+
+    with hold_canvas():
+        canvas.stroke_line(position[0], position[1], x, y)
+        canvas.fill_polygon(shape)
+
+    shape = []
+
+
+canvas.on_mouse_down(on_mouse_down)
+canvas.on_mouse_move(on_mouse_move)
+canvas.on_mouse_up(on_mouse_up)
+
+canvas.stroke_style = "#749cb8"
+
+picker = ColorPicker(description="Color:", value="#749cb8")
+
+link((picker, "value"), (canvas, "stroke_style"))
+link((picker, "value"), (canvas, "fill_style"))
+
+HBox((canvas, picker))
+```

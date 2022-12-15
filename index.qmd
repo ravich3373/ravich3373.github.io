@@ -1,5 +1,5 @@
 ---
-title: "About Me"
+title: ""
 about:
   template: trestles
   image: mystuff/ravi-profile.png
@@ -15,9 +15,35 @@ about:
       href: https://github.com/ravich3373
 ---
 
-Starting Fall'22 I am a Master's student at New York University. 
+<span style="font-family:sans-serif">
 
-Previously I was a computer vision engineer at [Vimaan](https://vimaan.ai/), where I've mostly worked on [event tracking](https://vimaan.ai/inventory-tracking-products/picktrack/).
+# ABOUT ME
+
+Master's student in computer science at NYU Courant.
+
+### Previously:
+
+* Computer vision engineer, Vimaan, Bangalore.
+* Engineer, Tonbo Imaging, Bangalore.
+* B.E. BITS Pilani, Hyderabad.
 
 
+### Worked on:
 
+* Computer Vision
+  * Human Object interaction
+  * Object detection
+  * Re-Identification
+  * Multi-camera object tracking
+
+* Vision + language
+  * Image retrieval
+  * Human Object Interaction
+  * OCR
+
+* Engineering
+  * Model optimization
+  * Deployment on edge devices
+  * Dataset collection, annotation.
+
+</span>

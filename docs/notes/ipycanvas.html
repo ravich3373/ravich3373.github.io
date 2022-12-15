@@ -7,9 +7,8 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 <meta name="dcterms.date" content="2022-12-15">
-<meta name="description" content="Modelling using MDPs, Policy Evaluation and Value Iteration.">
 
-<title>Raviteja Chukkapalli - Markov Decision Processes</title>
+<title>Raviteja Chukkapalli - wid</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -69,8 +68,11 @@ function gtag(){dataLayer.push(arguments);}
 gtag('js', new Date());
 gtag('config', 'G-6C8LEPK16T', { 'anonymize_ip': true});
 </script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.6/require.min.js" integrity="sha512-c3Nl8+7g4LMSTdrm621y7kf9v3SDPnhxLNhcjFJbKECVnmZHTdo+IRO05sNLTH/D3vA6u1X32ehoLC7WFVdheg==" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js" integrity="sha512-bLT0Qm9VnAYZDflyKcBaQ2gg0hSYNQrJ8RilYldYQ1FxQYoCLtUjuuRuZo+fjqhx/qtq/1itJ0C2ejDxltZVFg==" crossorigin="anonymous"></script>
+<script type="application/javascript">define('jquery', [],function() {return window.jQuery;})</script>
+<script src="https://unpkg.com/@jupyter-widgets/html-manager@*/dist/embed-amd.js" crossorigin="anonymous"></script>
 
-  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
 
 <link rel="stylesheet" href="../styles.css">
 </head>
@@ -116,32 +118,19 @@ gtag('config', 'G-6C8LEPK16T', { 'anonymize_ip': true});
 <!-- sidebar -->
 <!-- margin-sidebar -->
     <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
-        <nav id="TOC" role="doc-toc" class="toc-active">
-    <h2 id="toc-title">On this page</h2>
-   
-  <ul>
-  <li><a href="#mdp" id="toc-mdp" class="nav-link active" data-scroll-target="#mdp">MDP</a></li>
-  <li><a href="#policy-evaluation-how-good-is-a-policy" id="toc-policy-evaluation-how-good-is-a-policy" class="nav-link" data-scroll-target="#policy-evaluation-how-good-is-a-policy">[[Policy evaluation]]: How good is a policy?</a></li>
-  <li><a href="#optimal-value" id="toc-optimal-value" class="nav-link" data-scroll-target="#optimal-value">[[Optimal value]]:</a></li>
-  </ul>
-</nav>
+        
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title">Markov Decision Processes</h1>
+<h1 class="title">wid</h1>
   <div class="quarto-categories">
     <div class="quarto-category">classical AI</div>
   </div>
   </div>
 
-<div>
-  <div class="description">
-    Modelling using MDPs, Policy Evaluation and Value Iteration.
-  </div>
-</div>
 
 
 <div class="quarto-title-meta">
@@ -160,46 +149,20 @@ gtag('config', 'G-6C8LEPK16T', { 'anonymize_ip': true});
 
 </header>
 
-<p><img src="assets/publishing_decision_tree.png" alt="MDP as a Graph" width="600"></p>
-<section id="mdp" class="level2">
-<h2 class="anchored" data-anchor-id="mdp">MDP</h2>
-<ol type="1">
-<li>Problems in which there is uncertainity in the environemnt so you can not run the usual search algorithms. we use MDPs.</li>
-<li>We can formalize problems with uncertainity as an MDP.</li>
-<li>Policy -&gt; what to do from the current state, i.e, which state to move to next. a map from every state to the next state.</li>
-<li>Solution of an MDP is a policy.</li>
-<li>To represent the problem as a graph we use states as nodes and then we use a new type of node called a chance node to represent the uncertainity.</li>
-<li><mark class="hltr-red">TODO</mark>: Comparision of search and MDP problem formulations. (at 19:18)</li>
-</ol>
-</section>
-<section id="policy-evaluation-how-good-is-a-policy" class="level2">
-<h2 class="anchored" data-anchor-id="policy-evaluation-how-good-is-a-policy">[[Policy evaluation]]: How good is a policy?</h2>
-<ol type="1">
-<li>Following a policy yields a random path(due to randomness in env). The [[utility]] of a policy is the discounted sum of the rewards on this path. The [[value]] of a policy is the [[expected utility]] of the policy.</li>
-<li>value is defined for each node.</li>
-<li>Value of a policy <span class="math inline">\(V_{p}\)</span> (s) = expected utility by following policy p from state s.</li>
-<li>[[Q-value]] of a policy <span class="math inline">\(Q_p\)</span> (s, a) = expected utility of taking action a from state s and then following policy p.</li>
-<li>Q-value is expected utility from chance node.</li>
-<li><span class="math inline">\(V_p\)</span> (s) = {0 if IsEnd(s) = True or <span class="math inline">\(Q_p\)</span>(s, a)} where a = Policy(s).</li>
-<li><span class="math inline">\(Q_p\)</span>(s, a) = <span class="math inline">\(\sum_{s'}^{}\)</span> T(s, a, s’) * [R(s, a, s’) + <span class="math inline">\(\gamma\)</span> * <span class="math inline">\(V_p\)</span>(s’)]</li>
-<li>Sometimes <span class="math inline">\(V_p\)</span> from the above equations gives a [[closed form]] equation. here we solve directly.</li>
-<li>Sometimes The equations becomes reccursive. Then we assign intiial values of all states to 0 and iterate on the equations for every state to get value of the state in next time step and continue the process for a fixed number of iterations or until the delta is less than some value(convergence).</li>
-</ol>
-</section>
-<section id="optimal-value" class="level2">
-<h2 class="anchored" data-anchor-id="optimal-value">[[Optimal value]]:</h2>
-<ol type="1">
-<li><span class="math inline">\(V_{opt}\)</span> (s) = maximim value atttained by any policy.</li>
-<li>. <span class="math inline">\(Q_{opt}\)</span>(s, a) = <span class="math inline">\(\sum_{s'}^{}\)</span> T(s, a, s’) * [R(s, a, s’) + <span class="math inline">\(\gamma\)</span> * <span class="math inline">\(V_{opt}\)</span>(s’)]</li>
-<li><span class="math inline">\(V_{opt}\)</span>(s,a) = {0 of IsEnd(s) = True , <span class="math inline">\(max_{actions(s)}\)</span> <span class="math inline">\(Q_{opt}\)</span> (s, a)}</li>
-<li>This mean optimal policy <span class="math inline">\(P_{opt}\)</span> (s) = <span class="math display">\[argmax_{a \in actions} Q_{opt} (s, a)\]</span></li>
-<li>This is [[value iteration]].</li>
-</ol>
+<div class="cell" data-execution_count="1">
+<div class="cell-output cell-output-display">
+<script type="application/vnd.jupyter.widget-view+json">
+{"model_id":"42e6d7b4799f4568b80eb24fe900890c","version_major":2,"version_minor":0}
+</script>
+</div>
+</div>
 
 
-</section>
 
 </main> <!-- /main -->
+<script type="application/vnd.jupyter.widget-state+json">
+{"state":{"00b16a66d73a4326b2eb131f067a9456":{"model_module":"ipycanvas","model_module_version":"^0.13","model_name":"RoughCanvasModel","state":{"_canvas_manager":"IPY_MODEL_8f91c9fbe06d4b38b66778e6a87fe47a","_dom_classes":[],"_model_module":"ipycanvas","_model_module_version":"^0.13","_model_name":"RoughCanvasModel","_send_client_ready_event":true,"_view_count":null,"_view_module":"ipycanvas","_view_module_version":"^0.13","_view_name":"CanvasView","height":1000,"image_data":null,"layout":"IPY_MODEL_611c5e933f5e4fb9a5e3abe8ed828539","sync_image_data":false,"width":1000}},"341a13e49215427ca4c7b852a2bb1ff0":{"model_module":"@jupyter-widgets/base","model_module_version":"1.2.0","model_name":"LayoutModel","state":{"_model_module":"@jupyter-widgets/base","_model_module_version":"1.2.0","_model_name":"LayoutModel","_view_count":null,"_view_module":"@jupyter-widgets/base","_view_module_version":"1.2.0","_view_name":"LayoutView","align_content":null,"align_items":null,"align_self":null,"border":null,"bottom":null,"display":null,"flex":null,"flex_flow":null,"grid_area":null,"grid_auto_columns":null,"grid_auto_flow":null,"grid_auto_rows":null,"grid_column":null,"grid_gap":null,"grid_row":null,"grid_template_areas":null,"grid_template_columns":null,"grid_template_rows":null,"height":null,"justify_content":null,"justify_items":null,"left":null,"margin":null,"max_height":null,"max_width":null,"min_height":null,"min_width":null,"object_fit":null,"object_position":null,"order":null,"overflow":null,"overflow_x":null,"overflow_y":null,"padding":null,"right":null,"top":null,"visibility":null,"width":null}},"42e6d7b4799f4568b80eb24fe900890c":{"model_module":"@jupyter-widgets/controls","model_module_version":"1.5.0","model_name":"HBoxModel","state":{"_dom_classes":[],"_model_module":"@jupyter-widgets/controls","_model_module_version":"1.5.0","_model_name":"HBoxModel","_view_count":null,"_view_module":"@jupyter-widgets/controls","_view_module_version":"1.5.0","_view_name":"HBoxView","box_style":"","children":["IPY_MODEL_00b16a66d73a4326b2eb131f067a9456","IPY_MODEL_f418913d85fb49e2bf34e0706b44ff5e"],"layout":"IPY_MODEL_341a13e49215427ca4c7b852a2bb1ff0"}},"611c5e933f5e4fb9a5e3abe8ed828539":{"model_module":"@jupyter-widgets/base","model_module_version":"1.2.0","model_name":"LayoutModel","state":{"_model_module":"@jupyter-widgets/base","_model_module_version":"1.2.0","_model_name":"LayoutModel","_view_count":null,"_view_module":"@jupyter-widgets/base","_view_module_version":"1.2.0","_view_name":"LayoutView","align_content":null,"align_items":null,"align_self":null,"border":null,"bottom":null,"display":null,"flex":null,"flex_flow":null,"grid_area":null,"grid_auto_columns":null,"grid_auto_flow":null,"grid_auto_rows":null,"grid_column":null,"grid_gap":null,"grid_row":null,"grid_template_areas":null,"grid_template_columns":null,"grid_template_rows":null,"height":null,"justify_content":null,"justify_items":null,"left":null,"margin":null,"max_height":null,"max_width":null,"min_height":null,"min_width":null,"object_fit":null,"object_position":null,"order":null,"overflow":null,"overflow_x":null,"overflow_y":null,"padding":null,"right":null,"top":null,"visibility":null,"width":null}},"8f91c9fbe06d4b38b66778e6a87fe47a":{"model_module":"ipycanvas","model_module_version":"^0.13","model_name":"CanvasManagerModel","state":{"_model_module":"ipycanvas","_model_module_version":"^0.13","_model_name":"CanvasManagerModel","_view_count":null,"_view_module":null,"_view_module_version":"","_view_name":null}},"9376dabb52d5487e9e511ca9f1cde474":{"model_module":"@jupyter-widgets/controls","model_module_version":"1.5.0","model_name":"DescriptionStyleModel","state":{"_model_module":"@jupyter-widgets/controls","_model_module_version":"1.5.0","_model_name":"DescriptionStyleModel","_view_count":null,"_view_module":"@jupyter-widgets/base","_view_module_version":"1.2.0","_view_name":"StyleView","description_width":""}},"e208d026404b461eb4d9e984f1826d7b":{"model_module":"@jupyter-widgets/base","model_module_version":"1.2.0","model_name":"LayoutModel","state":{"_model_module":"@jupyter-widgets/base","_model_module_version":"1.2.0","_model_name":"LayoutModel","_view_count":null,"_view_module":"@jupyter-widgets/base","_view_module_version":"1.2.0","_view_name":"LayoutView","align_content":null,"align_items":null,"align_self":null,"border":null,"bottom":null,"display":null,"flex":null,"flex_flow":null,"grid_area":null,"grid_auto_columns":null,"grid_auto_flow":null,"grid_auto_rows":null,"grid_column":null,"grid_gap":null,"grid_row":null,"grid_template_areas":null,"grid_template_columns":null,"grid_template_rows":null,"height":null,"justify_content":null,"justify_items":null,"left":null,"margin":null,"max_height":null,"max_width":null,"min_height":null,"min_width":null,"object_fit":null,"object_position":null,"order":null,"overflow":null,"overflow_x":null,"overflow_y":null,"padding":null,"right":null,"top":null,"visibility":null,"width":null}},"f418913d85fb49e2bf34e0706b44ff5e":{"model_module":"@jupyter-widgets/controls","model_module_version":"1.5.0","model_name":"ColorPickerModel","state":{"_dom_classes":[],"_model_module":"@jupyter-widgets/controls","_model_module_version":"1.5.0","_model_name":"ColorPickerModel","_view_count":null,"_view_module":"@jupyter-widgets/controls","_view_module_version":"1.5.0","_view_name":"ColorPickerView","concise":false,"description":"Color:","description_tooltip":null,"disabled":false,"layout":"IPY_MODEL_e208d026404b461eb4d9e984f1826d7b","style":"IPY_MODEL_9376dabb52d5487e9e511ca9f1cde474","value":"#749cb8"}}},"version_major":2,"version_minor":0}
+</script>
 <script id="quarto-html-after-body" type="application/javascript">
 window.document.addEventListener("DOMContentLoaded", function (event) {
   const toggleBodyColorMode = (bsSheetEl) => {

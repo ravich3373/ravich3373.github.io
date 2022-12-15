@@ -10,5 +10,41 @@
   },
   "resume.qmd": {
     "resume.html": "5311ec0a"
+  },
+  "notes/Markov Decision Processes.qmd": {
+    "Markov Decision Processes.html": "3cad0dfc"
+  },
+  "notes/MDP.qmd": {
+    "MDP.html": "975837b0"
+  },
+  "notes.qmd": {
+    "notes.html": "9f234d13"
+  },
+  "posts/linear_models.qmd": {
+    "linear_models.html": "5f726e4e"
+  },
+  "exps/plotly_draw.ipynb": {
+    "plotly_draw.html": "99d2e613"
+  },
+  "exps/dash_draw.qmd": {
+    "dash_draw.html": "52ea0d0f"
+  },
+  "exps/d3.qmd": {
+    "d3.html": "81b409a0"
+  },
+  "exps/ipycanvas.qmd": {
+    "ipycanvas.html": "7cdeb21f"
+  },
+  "notes/ipycanvas.qmd": {
+    "ipycanvas.html": "1abfea76"
+  },
+  "notes/ipyleaflet.qmd": {
+    "ipyleaflet.html": "bff08839"
+  },
+  "posts.qmd": {
+    "posts.html": "425f678b"
+  },
+  "posts/mdp.qmd": {
+    "mdp.html": "75dd5ceb"
   }
 }
