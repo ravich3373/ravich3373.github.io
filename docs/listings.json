@@ -6,6 +6,7 @@
   {
     "listing": "/posts.html",
     "items": [
+      "/posts/detr.html",
       "/posts/mdp.html"
     ]
   }
