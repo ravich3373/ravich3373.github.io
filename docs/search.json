@@ -1,10 +1,17 @@
 [
   {
+    "objectID": "LLVMs.html",
+    "href": "LLVMs.html",
+    "title": "LLVMs",
+    "section": "",
+    "text": "Diffusion Models\n\n\n\n\n\n\n\npaper\n\n\nDiffusion\n\n\n\n\n\n\n\n\n\n\n\nOct 12, 2023\n\n\n\n\n\n\nNo matching items"
+  },
+  {
     "objectID": "index.html",
     "href": "index.html",
     "title": "Raviteja Chukkapalli",
     "section": "",
-    "text": "ABOUT ME\nMaster’s student in computer science at NYU Courant.\n\nPreviously:\n\nComputer vision engineer, Vimaan, Bangalore.\nEngineer, Tonbo Imaging, Bangalore.\nB.E. BITS Pilani, Hyderabad.\n\n\n\nWorked on:\n\nComputer Vision\n\nHuman Object interaction\nObject detection\nRe-Identification\nMulti-camera object tracking\n\nVision + language\n\nImage retrieval\nHuman Object Interaction\nOCR\n\nEngineering\n\nModel optimization\nDeployment on edge devices\nDataset collection, annotation."
+    "text": "ABOUT ME\nMaster’s student in computer science at NYU Courant. I hate Dota 2. Making LLMs play games. Checkout Random.\n\nPreviously:\n\nComputer vision engineer, Vimaan, Bangalore.\nEngineer, Tonbo Imaging, Bangalore.\nB.E. BITS Pilani, Hyderabad.\n\n\n\nPreviously Worked on:\n\nComputer Vision\n\nHuman Object interaction\nObject detection\nRe-Identification\nMulti-camera object tracking\n\nVision + language\n\nMulti-Object Scene Generation (Diffusion Models)\nImage retrieval\nHuman Object Interaction\nOCR\n\nEngineering\n\nModel optimization\nDeployment on edge devices\nDataset collection, annotation."
   },
   {
     "objectID": "notes.html",
@@ -54,5 +61,26 @@
     "title": "Plan a trip!",
     "section": "",
     "text": "Rules\n\nS is the starting location\nBlue suqares represent a river. Which you can cross using a bridge with some probability of getting stuck in the traffic and not reaching D.\nD is the destination.\nUse input boxes on the right to set a reward for reaching the location.\nThe arrows on the left map represent the optimal policy for a traveller going from S to D and collecting as much reward as possible on the way."
+  },
+  {
+    "objectID": "posts_LLVMs/diffusion.html#sampling-from-distributions",
+    "href": "posts_LLVMs/diffusion.html#sampling-from-distributions",
+    "title": "Diffusion Models",
+    "section": "Sampling from Distributions",
+    "text": "Sampling from Distributions\n\nUsing Random Noise"
+  },
+  {
+    "objectID": "projects.html",
+    "href": "projects.html",
+    "title": "Random",
+    "section": "",
+    "text": "LLMs playing games\n\n\n\n\n\n\n\nRandom\n\n\nVisualization\n\n\n\n\n\n\n\n\n\n\n\nMar 13, 2024\n\n\n\n\n\n\nNo matching items"
+  },
+  {
+    "objectID": "projects/llm_agents.html",
+    "href": "projects/llm_agents.html",
+    "title": "LLMs playing games",
+    "section": "",
+    "text": "Can LLMs plan and reason?\n\n\n\n\n\n\nThis page is alive i.e, I’ll be adding new visualizations (new LLM, Game, Planning approach etc.).\n\n\n\nThis question is asked a lot these days! and not so coincidentally a lot of research groups are working on this. One direction this research has taken is to use games to evaluate this hypothesis.\nThe first step would be to make an LLM understand the game state (observations) and take valid actions(play moves). Knowing the strong instruction following capacity of LLMs (instruction-tuned LLM) this should be achievable!\n\nTic-Tac-Toe, Propmt-based Agents\nThe Player using 🟥 Is the LLM Agent\nThe Player using 🟦 Is Monte Carlo Tree Search.\n\n\n\n\n\n\n\n\n\n\n\n\n\nFigure 1: LLAMA2 7B\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nFigure 2: MISTRAL 7B"
   }
 ]
