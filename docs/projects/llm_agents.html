@@ -168,9 +168,16 @@ gtag('config', 'G-6C8LEPK16T', { 'anonymize_ip': true});
 </div>
 </div>
 <p>This question is asked a lot these days! and not so coincidentally a lot of research groups are working on this. One direction this research has taken is to use games to evaluate this hypothesis.</p>
-<p>The first step would be to make an LLM understand the game state (observations) and take valid actions(play moves). Knowing the strong instruction following capacity of LLMs (instruction-tuned LLM) this should be achievable!</p>
-<section id="tic-tac-toe-propmt-based-agents" class="level3">
-<h3 class="anchored" data-anchor-id="tic-tac-toe-propmt-based-agents">Tic-Tac-Toe, Propmt-based Agents</h3>
+<p>The first step would be to make an LLM understand the game state (observations) and take valid actions(play moves). Knowing the strong instruction-following capacity of LLMs (instruction-tuned LLM) this should be achievable!</p>
+<p>Here are some visualizations of LLMs playing against classical AI agents.</p>
+<section id="tic-tac-toe-propmt-based-agents" class="level2">
+<h2 class="anchored" data-anchor-id="tic-tac-toe-propmt-based-agents">Tic-Tac-Toe, Propmt-based Agents</h2>
+<ul>
+<li>Game: Tic-Tac-Toe</li>
+<li>LLMs: LLAMA2 7B, MISTRAL 7B</li>
+<li>Agent Design: Propmt based, i.e, game instructions and current state are given in the input prompt to the LLM.</li>
+<li>Reasoning Module: None/LLM itself.</li>
+</ul>
 <p>The Player using 🟥 Is the LLM Agent</p>
 <p>The Player using 🟦 Is Monte Carlo Tree Search.</p>
 <div id="fig-elephants" class="quarto-layout-panel">

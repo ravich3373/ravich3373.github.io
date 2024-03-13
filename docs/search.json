@@ -81,6 +81,13 @@
     "href": "projects/llm_agents.html",
     "title": "LLMs playing games",
     "section": "",
-    "text": "Can LLMs plan and reason?\n\n\n\n\n\n\nThis page is alive i.e, I’ll be adding new visualizations (new LLM, Game, Planning approach etc.).\n\n\n\nThis question is asked a lot these days! and not so coincidentally a lot of research groups are working on this. One direction this research has taken is to use games to evaluate this hypothesis.\nThe first step would be to make an LLM understand the game state (observations) and take valid actions(play moves). Knowing the strong instruction following capacity of LLMs (instruction-tuned LLM) this should be achievable!\n\nTic-Tac-Toe, Propmt-based Agents\nThe Player using 🟥 Is the LLM Agent\nThe Player using 🟦 Is Monte Carlo Tree Search.\n\n\n\n\n\n\n\n\n\n\n\n\n\nFigure 1: LLAMA2 7B\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nFigure 2: MISTRAL 7B"
+    "text": "Can LLMs plan and reason?\nThis question is asked a lot these days! and not so coincidentally a lot of research groups are working on this. One direction this research has taken is to use games to evaluate this hypothesis.\nThe first step would be to make an LLM understand the game state (observations) and take valid actions(play moves). Knowing the strong instruction-following capacity of LLMs (instruction-tuned LLM) this should be achievable!\nHere are some visualizations of LLMs playing against classical AI agents."
+  },
+  {
+    "objectID": "projects/llm_agents.html#tic-tac-toe-propmt-based-agents",
+    "href": "projects/llm_agents.html#tic-tac-toe-propmt-based-agents",
+    "title": "LLMs playing games",
+    "section": "Tic-Tac-Toe, Propmt-based Agents",
+    "text": "Tic-Tac-Toe, Propmt-based Agents\n\nGame: Tic-Tac-Toe\nLLMs: LLAMA2 7B, MISTRAL 7B\nAgent Design: Propmt based, i.e, game instructions and current state are given in the input prompt to the LLM.\nReasoning Module: None/LLM itself.\n\nThe Player using 🟥 Is the LLM Agent\nThe Player using 🟦 Is Monte Carlo Tree Search.\n\n\n\n\n\n\n\n\n\n\n\n\n\nFigure 1: LLAMA2 7B\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nFigure 2: MISTRAL 7B"
   }
 ]
