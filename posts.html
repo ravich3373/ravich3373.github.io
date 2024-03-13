@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>Raviteja Chukkapalli -</title>
+<title>Raviteja Chukkapalli - Posts</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -30,9 +30,12 @@ ul.task-list li input[type="checkbox"] {
 <script src="site_libs/quarto-search/fuse.min.js"></script>
 <script src="site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="./">
+<script src="site_libs/quarto-listing/list.min.js"></script>
+<script src="site_libs/quarto-listing/quarto-listing.js"></script>
 <script src="site_libs/quarto-html/quarto.js"></script>
 <script src="site_libs/quarto-html/popper.min.js"></script>
 <script src="site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="site_libs/quarto-html/anchor.min.js"></script>
 <link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
 <link href="site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
 <script src="site_libs/bootstrap/bootstrap.min.js"></script>
@@ -57,6 +60,35 @@ ul.task-list li input[type="checkbox"] {
     "search-submit-button-title": "Submit"
   }
 }</script>
+<script>
+
+  window.document.addEventListener("DOMContentLoaded", function (_event) {
+    const listingTargetEl = window.document.querySelector('#listing-listing .list');
+    if (!listingTargetEl) {
+      // No listing discovered, do not attach.
+      return; 
+    }
+
+    const options = {
+      valueNames: ['listing-date','listing-title','listing-author','listing-image','listing-description','listing-categories',{ data: ['index'] },{ data: ['categories'] },{ data: ['listing-date-sort'] },{ data: ['listing-file-modified-sort'] }],
+      
+      searchColumns: ["listing-date","listing-title","listing-author","listing-image","listing-description","listing-categories"],
+    };
+
+    window['quarto-listings'] = window['quarto-listings'] || {};
+    window['quarto-listings']['listing-listing'] = new List('listing-listing', options);
+
+    if (window['quarto-listing-loaded']) {
+      window['quarto-listing-loaded']();
+    }
+  });
+
+  window.addEventListener('hashchange',() => {
+    if (window['quarto-listing-loaded']) {
+      window['quarto-listing-loaded']();
+    }
+  })
+  </script>
 <script async="" src="https://www.googletagmanager.com/gtag/js?id=G-6C8LEPK16T"></script>
 
 <script type="text/javascript">
@@ -67,11 +99,12 @@ gtag('js', new Date());
 gtag('config', 'G-6C8LEPK16T', { 'anonymize_ip': true});
 </script>
 
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
 
 <link rel="stylesheet" href="styles.css">
 </head>
 
-<body class="nav-fixed fullcontent">
+<body class="nav-fixed">
 
 <div id="quarto-search-results"></div>
   <header id="quarto-header" class="headroom fixed-top">
@@ -88,7 +121,7 @@ gtag('config', 'G-6C8LEPK16T', { 'anonymize_ip': true});
           <div class="collapse navbar-collapse" id="navbarCollapse">
             <ul class="navbar-nav navbar-nav-scroll me-auto">
   <li class="nav-item">
-    <a class="nav-link active" href="./index.html" aria-current="page">
+    <a class="nav-link" href="./index.html">
  <span class="menu-text">Home</span></a>
   </li>  
 </ul>
@@ -98,7 +131,7 @@ gtag('config', 'G-6C8LEPK16T', { 'anonymize_ip': true});
  <span class="menu-text">Notes</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link" href="./posts.html">
+    <a class="nav-link active" href="./posts.html" aria-current="page">
  <span class="menu-text">Posts</span></a>
   </li>  
   <li class="nav-item">
@@ -112,75 +145,156 @@ gtag('config', 'G-6C8LEPK16T', { 'anonymize_ip': true});
     </nav>
 </header>
 <!-- content -->
-<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
+<header id="title-block-header" class="quarto-title-block default page-columns page-full">
+  <div class="quarto-title-banner page-columns page-full">
+    <div class="quarto-title column-page-left">
+      <h1 class="title">Posts</h1>
+                      </div>
+  </div>
+    
+  
+  <div class="quarto-title-meta">
+
+      
+    
+      
+    </div>
+    
+  
+  </header><div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-full page-navbar">
 <!-- sidebar -->
 <!-- margin-sidebar -->
-    
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        
+    <h5 class="quarto-listing-category-title">Categories</h5><div class="quarto-listing-category category-default"><div class="category" data-category="">All <span class="quarto-category-count">(3)</span></div><div class="category" data-category="Code Walkthrough">Code Walkthrough <span class="quarto-category-count">(1)</span></div><div class="category" data-category="Interactive">Interactive <span class="quarto-category-count">(1)</span></div><div class="category" data-category="classical AI">classical AI <span class="quarto-category-count">(1)</span></div><div class="category" data-category="drug discovery">drug discovery <span class="quarto-category-count">(1)</span></div><div class="category" data-category="graph">graph <span class="quarto-category-count">(1)</span></div><div class="category" data-category="icml">icml <span class="quarto-category-count">(1)</span></div><div class="category" data-category="paper">paper <span class="quarto-category-count">(1)</span></div><div class="category" data-category="transformer">transformer <span class="quarto-category-count">(1)</span></div></div></div>
 <!-- main -->
-<div class="quarto-about-trestles">
-  <div class="about-entity">
-    <img src="mystuff/ravi-profile.png" class="about-image
-  rounded " style="width: 20em;">
-    <div class="about-links">
-  <a href="https://twitter.com/Ravi_CRT" class="about-link">
-    <i class="bi bi-twitter"></i>
-     <span class="about-link-text">twitter</span>
-  </a>
-  <a href="https://www.linkedin.com/in/ravi-teja-b504aba7/" class="about-link">
-    <i class="bi bi-linkedin"></i>
-     <span class="about-link-text">Linkedin</span>
-  </a>
-  <a href="https://github.com/ravich3373" class="about-link">
-    <i class="bi bi-github"></i>
-     <span class="about-link-text">Github</span>
-  </a>
-</div>
-  </div>
-  <div class="about-contents"><main class="content" id="quarto-document-content">
-<p><span style="font-family:sans-serif"></span></p>
-<section id="about-me" class="level1">
-<h1>ABOUT ME</h1>
-<p>Master’s student in computer science at NYU Courant. I hate Dota 2. Making LLMs play games. Checkout <a href="./projects.html">Random</a>.</p>
-<section id="previously" class="level3">
-<h3 data-anchor-id="previously">Previously:</h3>
-<ul>
-<li>Computer vision engineer, Vimaan, Bangalore.</li>
-<li>Engineer, Tonbo Imaging, Bangalore.</li>
-<li>B.E. BITS Pilani, Hyderabad.</li>
-</ul>
-</section>
-<section id="previously-worked-on" class="level3">
-<h3 data-anchor-id="previously-worked-on">Previously Worked on:</h3>
-<ul>
-<li>Computer Vision
-<ul>
-<li>Human Object interaction</li>
-<li>Object detection</li>
-<li>Re-Identification</li>
-<li>Multi-camera object tracking</li>
-</ul></li>
-<li>Vision + language
-<ul>
-<li>Multi-Object Scene Generation (Diffusion Models)</li>
-<li>Image retrieval</li>
-<li>Human Object Interaction</li>
-<li>OCR</li>
-</ul></li>
-<li>Engineering
-<ul>
-<li>Model optimization</li>
-<li>Deployment on edge devices</li>
-<li>Dataset collection, annotation.</li>
-</ul></li>
-</ul>
-<p></p>
+<main class="content quarto-banner-title-block column-page-left" id="quarto-document-content">
 
 
-</section>
-</section>
-</main></div>
+
+
+
+
+
+
+<div class="quarto-listing quarto-listing-container-default" id="listing-listing">
+<div class="list quarto-listing-default">
+<div class="quarto-post image-right" data-index="0" data-categories="paper,icml,transformer,drug discovery,graph" data-listing-date-sort="1675233080000" data-listing-file-modified-sort="1675233080574" data-listing-reading-time-sort="5.43">
+<div class="thumbnail">
+<p><a href="./posts/grpe.html"> <img src="./posts/assets/grpe.png" class="thumnail-image"> </a></p>
 </div>
- <!-- /main -->
+<div class="body">
+<a href="./posts/grpe.html">
+<h3 class="no-anchor listing-title">
+Graph Relative Positional Encoding
+</h3>
+<div class="listing-subtitle">
+
+</div>
+</a>
+<div class="listing-categories">
+<div class="listing-category" onclick="window.quartoListingCategory('paper'); return false;">
+paper
+</div>
+<div class="listing-category" onclick="window.quartoListingCategory('icml'); return false;">
+icml
+</div>
+<div class="listing-category" onclick="window.quartoListingCategory('transformer'); return false;">
+transformer
+</div>
+<div class="listing-category" onclick="window.quartoListingCategory('drug discovery'); return false;">
+drug discovery
+</div>
+<div class="listing-category" onclick="window.quartoListingCategory('graph'); return false;">
+graph
+</div>
+</div>
+<a href="./posts/grpe.html">
+<div class="listing-description">
+A Graph is a versatile data structure that can be thought of as representing relations(edges) between a <strong>set</strong> …<strong></strong>
+</div>
+</a>
+</div>
+<div class="metadata">
+<a href="./posts/grpe.html">
+<div class="listing-date">
+Feb 1, 2023
+</div>
+</a>
+</div>
+</div>
+<div class="quarto-post image-right" data-index="1" data-categories="Code Walkthrough" data-listing-date-sort="1672894800000" data-listing-file-modified-sort="1672955656261" data-listing-reading-time-sort="16.345">
+<div class="thumbnail">
+<p><a href="./posts/detr.html"> <img src="./posts/assets/1.png" class="thumnail-image"> </a></p>
+</div>
+<div class="body">
+<a href="./posts/detr.html">
+<h3 class="no-anchor listing-title">
+End to End Object Detection with Transformers(DeTr)
+</h3>
+<div class="listing-subtitle">
+
+</div>
+</a>
+<div class="listing-categories">
+<div class="listing-category" onclick="window.quartoListingCategory('Code Walkthrough'); return false;">
+Code Walkthrough
+</div>
+</div>
+<a href="./posts/detr.html">
+<div class="listing-description">
+The evolution CNNs from classifiers to object detectors (CNN -&gt;…
+</div>
+</a>
+</div>
+<div class="metadata">
+<a href="./posts/detr.html">
+<div class="listing-date">
+Jan 5, 2023
+</div>
+</a>
+</div>
+</div>
+<div class="quarto-post image-right" data-index="2" data-categories="classical AI,Interactive" data-listing-date-sort="1671080400000" data-listing-file-modified-sort="1675233269224" data-listing-reading-time-sort="1.2">
+<div class="thumbnail">
+<p><a href="./posts/mdp.html"> <img src="./posts/assets/publishing_decision_tree.png" class="thumnail-image"> </a></p>
+</div>
+<div class="body">
+<a href="./posts/mdp.html">
+<h3 class="no-anchor listing-title">
+Plan a trip!
+</h3>
+<div class="listing-subtitle">
+
+</div>
+</a>
+<div class="listing-categories">
+<div class="listing-category" onclick="window.quartoListingCategory('classical AI'); return false;">
+classical AI
+</div>
+<div class="listing-category" onclick="window.quartoListingCategory('Interactive'); return false;">
+Interactive
+</div>
+</div>
+<a href="./posts/mdp.html">
+<div class="listing-description">
+
+</div>
+</a>
+</div>
+<div class="metadata">
+<a href="./posts/mdp.html">
+<div class="listing-date">
+Dec 15, 2022
+</div>
+</a>
+</div>
+</div>
+</div>
+<div class="listing-no-matching d-none">
+No matching items
+</div>
+</div></main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">
 window.document.addEventListener("DOMContentLoaded", function (event) {
   const toggleBodyColorMode = (bsSheetEl) => {
@@ -201,6 +315,13 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
     }
   }
   toggleBodyColorPrimary();  
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
   const clipboard = new window.ClipboardJS('.code-copy-button', {
     target: function(trigger) {
       return trigger.previousElementSibling;

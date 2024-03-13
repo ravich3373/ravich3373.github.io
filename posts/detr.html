@@ -1,0 +1,716 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.2.269">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+<meta name="dcterms.date" content="2023-01-05">
+
+<title>Raviteja Chukkapalli - End to End Object Detection with Transformers(DeTr)</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1.6em;
+  vertical-align: middle;
+}
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { color: #008000; } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { color: #008000; font-weight: bold; } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+div.csl-bib-body { }
+div.csl-entry {
+  clear: both;
+}
+.hanging div.csl-entry {
+  margin-left:2em;
+  text-indent:-2em;
+}
+div.csl-left-margin {
+  min-width:2em;
+  float:left;
+}
+div.csl-right-inline {
+  margin-left:2em;
+  padding-left:1em;
+}
+div.csl-indent {
+  margin-left: 2em;
+}
+</style>
+
+
+<script src="../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../">
+<script src="../site_libs/quarto-html/quarto.js"></script>
+<script src="../site_libs/quarto-html/popper.min.js"></script>
+<script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "navbar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "end",
+  "type": "overlay",
+  "limit": 20,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit"
+  }
+}</script>
+<script async="" src="https://www.googletagmanager.com/gtag/js?id=G-6C8LEPK16T"></script>
+
+<script type="text/javascript">
+
+window.dataLayer = window.dataLayer || [];
+function gtag(){dataLayer.push(arguments);}
+gtag('js', new Date());
+gtag('config', 'G-6C8LEPK16T', { 'anonymize_ip': true});
+</script>
+
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+
+<link rel="stylesheet" href="../styles.css">
+</head>
+
+<body class="nav-fixed">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+    <nav class="navbar navbar-expand-lg navbar-dark ">
+      <div class="navbar-container container-fluid">
+      <div class="navbar-brand-container">
+    <a class="navbar-brand" href="../index.html">
+    <span class="navbar-title">Raviteja Chukkapalli</span>
+    </a>
+  </div>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+  <span class="navbar-toggler-icon"></span>
+</button>
+          <div class="collapse navbar-collapse" id="navbarCollapse">
+            <ul class="navbar-nav navbar-nav-scroll me-auto">
+  <li class="nav-item">
+    <a class="nav-link" href="../index.html">
+ <span class="menu-text">Home</span></a>
+  </li>  
+</ul>
+            <ul class="navbar-nav navbar-nav-scroll ms-auto">
+  <li class="nav-item">
+    <a class="nav-link" href="../notes.html">
+ <span class="menu-text">Notes</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../posts.html">
+ <span class="menu-text">Posts</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../projects.html">
+ <span class="menu-text">Random</span></a>
+  </li>  
+</ul>
+              <div id="quarto-search" class="" title="Search"></div>
+          </div> <!-- /navcollapse -->
+      </div> <!-- /container-fluid -->
+    </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
+<!-- sidebar -->
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul>
+  <li><a href="#introduction" id="toc-introduction" class="nav-link active" data-scroll-target="#introduction">Introduction</a></li>
+  <li><a href="#detr-overview" id="toc-detr-overview" class="nav-link" data-scroll-target="#detr-overview">DeTr Overview</a></li>
+  <li><a href="#implementation" id="toc-implementation" class="nav-link" data-scroll-target="#implementation">Implementation</a>
+  <ul class="collapse">
+  <li><a href="#load-image" id="toc-load-image" class="nav-link" data-scroll-target="#load-image">Load Image</a></li>
+  <li><a href="#create-the-detr-object" id="toc-create-the-detr-object" class="nav-link" data-scroll-target="#create-the-detr-object">Create the DeTr object</a></li>
+  <li><a href="#forward-pass" id="toc-forward-pass" class="nav-link" data-scroll-target="#forward-pass">Forward Pass</a>
+  <ul class="collapse">
+  <li><a href="#lines-2-3" id="toc-lines-2-3" class="nav-link" data-scroll-target="#lines-2-3">Lines 2-3</a></li>
+  <li><a href="#line-4" id="toc-line-4" class="nav-link" data-scroll-target="#line-4">Line 4</a></li>
+  </ul></li>
+  <li><a href="#line-8" id="toc-line-8" class="nav-link" data-scroll-target="#line-8">Line 8</a></li>
+  </ul></li>
+  <li><a href="#comparision-with-faster-rcnn" id="toc-comparision-with-faster-rcnn" class="nav-link" data-scroll-target="#comparision-with-faster-rcnn">Comparision with Faster-RCNN</a></li>
+  </ul>
+</nav>
+    </div>
+<!-- main -->
+<main class="content page-columns page-full" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title">End to End Object Detection with Transformers(DeTr)</h1>
+  <div class="quarto-categories">
+    <div class="quarto-category">Code Walkthrough</div>
+  </div>
+  </div>
+
+
+
+<div class="quarto-title-meta">
+
+    
+    <div>
+    <div class="quarto-title-meta-heading">Published</div>
+    <div class="quarto-title-meta-contents">
+      <p class="date">January 5, 2023</p>
+    </div>
+  </div>
+  
+    
+  </div>
+  
+
+</header>
+
+<section id="introduction" class="level1">
+<h1>Introduction</h1>
+<p>The evolution CNNs from classifiers to object detectors (CNN -&gt; RCNN -&gt; Fast-RCNN -&gt; Faster-RCNN ….) is very interesting and rightly has a lot of articles written on it. If you are looking to read on this topic, I suggest you check this series <a href="https://medium.com/coinmonks/review-r-cnn-object-detection-b476aba290d1">post1</a>, <a href="https://medium.com/coinmonks/review-fast-r-cnn-object-detection-a82e172e87ba">post2</a>, <a href="https://towardsdatascience.com/review-faster-r-cnn-object-detection-f5685cb30202">post3</a>, <a href="https://medium.com/analytics-vidhya/review-mask-r-cnn-instance-segmentation-human-pose-estimation-61080a93bf4">post4</a>.</p>
+<p>The transformer is another architecture that has a similar story. The adaptation of transformers from NLP to vision and vision + language tasks is very interesting. Today transformer-based architectures can solve various vision tasks like object detection<span class="citation" data-cites="carion2020end">(<a href="#ref-carion2020end" role="doc-biblioref">Carion et al. 2020</a>)</span>, Human-Object Interaction Detection<span class="citation" data-cites="tamura2021qpic">(<a href="#ref-tamura2021qpic" role="doc-biblioref">Tamura, Ohashi, and Yoshinaga 2021</a>)</span>, tracking<span class="citation" data-cites="zeng2022motr">(<a href="#ref-zeng2022motr" role="doc-biblioref">Zeng et al. 2022</a>)</span> etc. In this post, I go over one such adaptation of the transformer for object detection(DeTr) from <span class="citation" data-cites="carion2020end">(<a href="#ref-carion2020end" role="doc-biblioref">Carion et al. 2020</a>)</span>, <a href="https://github.com/facebookresearch/detr">code</a> open sourced.</p>
+<p>There is a lot of content covering DeTr(<a href="https://www.youtube.com/watch?v=T35ba_VXkMY&amp;t=17s&amp;ab_channel=YannicKilcher">yannic</a>, <a href="https://huggingface.co/docs/transformers/model_doc/detr">HuggingFace</a>). In this post, I go over a few parts of the implementation provided by the authors, that I believe are essential to understanding and adapting DeTr for different use cases. I assume the reader is familiar with object detection architectures and Transformers in general.</p>
+</section>
+<section id="detr-overview" class="level1">
+<h1>DeTr Overview</h1>
+<ol type="1">
+<li>DeTr uses a CNN to extract features from an input image.</li>
+<li>Then augments the feature map with positional embeddings to add 2d positional information.</li>
+<li>The feature map is passed to the transformer encoder.</li>
+<li>The transformer decoder takes the output of the encoder, object detection queries(learnt embeddings) and returns a result(embedding) for each query, that contains information about object location and class(including <code>no object</code> class).</li>
+<li>MLPs are used to extract object class and bounding box information from these embeddings.</li>
+</ol>
+<p>How does one implement this in Pytorch? I go over the implementation provided by the authors. Going over the forward, and backward passes should give enough knowledge to understand and modify the implementation for specific use cases. Here I cover the <code>forward()</code> method of DeTr class. Since the implementation is in Pytorch and DeTr class is an <code>nn.Module</code>, So <code>forward()</code> method dictates inference.</p>
+<p>The questions someone familiar with object detection architectures and Transformers in general would have after reading about DeTr are.</p>
+<ol type="1">
+<li>How to calculate 2d positional embeddings?</li>
+<li>How to structure modules to add positional embeddings to the feature map?</li>
+<li>How does a transformer which should expect a sequence of embeddings parse the 2d feature map from a CNN?</li>
+<li>How does the transformer decoder predict object locations and classes in the absence of anchor boxes?</li>
+<li>How does this compare to established object detection architecture like Faster-RCNN?</li>
+</ol>
+<p>I try to cover the above details while going over the implementation of DeTr.</p>
+</section>
+<section id="implementation" class="level1">
+<h1>Implementation</h1>
+<ul>
+<li>I’ll be using the official implementation from Facebook, located <a href="https://github.com/facebookresearch/detr">here</a>.</li>
+</ul>
+<details>
+<summary>
+Setup to Try the inference(optional).
+</summary>
+<section id="load-image" class="level3">
+<h3 class="anchored" data-anchor-id="load-image">Load Image</h3>
+<ul>
+<li>I show one to load a single test image to try inference, there are many ways of doing it including using a Dataset for loading multiple images.</li>
+<li>Load an Image for examples using from PIL <code>img = Image.open("data/1.jpg")</code>.</li>
+<li>Convert the image into a tensor for consumption by <code>nn.Module</code>.
+<ul>
+<li>This can be done by using <code>make_coco_transforms</code> from datasets/coco.py.</li>
+<li><code>transforms = make_coco_transforms("val")</code> and <code>tensor = transforms(img)</code></li>
+<li>The above steps resize the image, normalize it with ImageNet mean and std and convert the image to a tensor of shape (C x H x W).</li>
+</ul></li>
+</ul>
+</section>
+<section id="create-the-detr-object" class="level3">
+<h3 class="anchored" data-anchor-id="create-the-detr-object">Create the DeTr object</h3>
+<ul>
+<li>There are many ways to create the DeTr object from this repo. I’ll show one of them, This way is not standard and only used for this experiment.</li>
+<li>Build the DeTr object using <code>build_model</code> from <code>models.py</code>.</li>
+<li><code>build_model</code> has a lot of arguments that configure the model, these include anywhere from backbone architecture to the learning rate. I will use the default configuration from the argument parser implemented in main.py.</li>
+<li>Use <code>get_args_parser</code> from main.py. get the default arguments <code>args = get_args_parser().parse_args("")</code>.</li>
+<li>create DeTr <code>model, criterion, postprocessors = build_model(args)</code>.</li>
+<li>You can modify the empty string I passed to <code>parse_args()</code> to set DeTr to a non-default configuration.</li>
+</ul>
+</section></details>
+</section>
+<section id="forward-pass" class="level2 page-columns page-full">
+<h2 class="anchored" data-anchor-id="forward-pass">Forward Pass</h2>
+<ul>
+<li>We can start inference by calling the model with the image tensor.</li>
+<li><code>op = model(img[None, :])</code></li>
+<li>Here img is the image tensor of shape (C, H, W). we index it with [None, :] to add an extra dimension that signifies batch size(here it is 1). So the final shape of the input tensor is (BS, C, H, W).</li>
+<li>The above call results in a call to the forward method of the model object(DeTr) which is shown below.</li>
+</ul>
+<div class="column-page">
+<div class="code-with-filename">
+<div class="code-with-filename-file">
+<pre><strong>detr/models/detr.py: 44</strong></pre>
+</div>
+<div class="sourceCode" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fl">1.</span>  <span class="kw">def</span> forward(<span class="va">self</span>, samples: NestedTensor):</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fl">2.</span>     <span class="cf">if</span> <span class="bu">isinstance</span>(samples, (<span class="bu">list</span>, torch.Tensor)):</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="fl">3.</span>         samples <span class="op">=</span> nested_tensor_from_tensor_list(samples)</span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="fl">4.</span>     features, pos <span class="op">=</span> <span class="va">self</span>.backbone(samples)</span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="fl">5.</span></span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a><span class="fl">6.</span>     src, mask <span class="op">=</span> features[<span class="op">-</span><span class="dv">1</span>].decompose()</span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a><span class="fl">7.</span>     <span class="cf">assert</span> mask <span class="kw">is</span> <span class="kw">not</span> <span class="va">None</span></span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a><span class="fl">8.</span>     hs <span class="op">=</span> <span class="va">self</span>.transformer(<span class="va">self</span>.input_proj(src), mask, <span class="va">self</span>.query_embed.weight, pos[<span class="op">-</span><span class="dv">1</span>])[<span class="dv">0</span>]</span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a><span class="fl">9.</span></span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a><span class="fl">10.</span>    outputs_class <span class="op">=</span> <span class="va">self</span>.class_embed(hs)</span>
+<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a><span class="fl">11.</span>    outputs_coord <span class="op">=</span> <span class="va">self</span>.bbox_embed(hs).sigmoid()</span>
+<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a><span class="fl">12.</span>    out <span class="op">=</span> {<span class="st">'pred_logits'</span>: outputs_class[<span class="op">-</span><span class="dv">1</span>], <span class="st">'pred_boxes'</span>: outputs_coord[<span class="op">-</span><span class="dv">1</span>]}</span>
+<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a><span class="fl">13.</span>    <span class="cf">if</span> <span class="va">self</span>.aux_loss:</span>
+<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a><span class="fl">14.</span>        out[<span class="st">'aux_outputs'</span>] <span class="op">=</span> <span class="va">self</span>._set_aux_loss(outputs_class, outputs_coord)</span>
+<span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a><span class="fl">15.</span>    <span class="cf">return</span> out</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</div>
+<ul>
+<li>I’ll go over the above function line by line and explain it.</li>
+</ul>
+<!-- <details open>
+<summary>Line 2-3 </summary> -->
+<section id="lines-2-3" class="level3 page-columns page-full">
+<h3 class="anchored" data-anchor-id="lines-2-3">Lines 2-3</h3>
+<div class="cell" data-execution_count="1">
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> <span class="bu">isinstance</span>(samples, (<span class="bu">list</span>, torch.Tensor)):</span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>    samples <span class="op">=</span> nested_tensor_from_tensor_list(samples)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<ol type="1">
+<li>The modules in this repo are written to expect input of type <code>NestedTensor</code>, but if we send in 4d tensor (BS, C, H, W) or a list of 3d tensors (C, H, W) they are first converted to NestTensors using <code>nested_tensor_from_tensor_list()</code>.</li>
+<li>It looks like this.</li>
+</ol>
+<div class="column-page">
+<div class="code-with-filename">
+<div class="code-with-filename-file">
+<pre><strong>detr/util/misc.py: 307</strong></pre>
+</div>
+<div class="sourceCode" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fl">1.</span>  <span class="kw">def</span> nested_tensor_from_tensor_list(tensor_list: List[Tensor]):</span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="fl">2.</span>      <span class="cf">if</span> tensor_list[<span class="dv">0</span>].ndim <span class="op">==</span> <span class="dv">3</span>:</span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a><span class="fl">3.</span>          <span class="cf">if</span> torchvision._is_tracing():</span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a><span class="fl">4.</span>              <span class="co"># nested_tensor_from_tensor_list() does not export well to ONNX</span></span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a><span class="fl">5.</span>              <span class="co"># call _onnx_nested_tensor_from_tensor_list() instead</span></span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a><span class="fl">6.</span>              <span class="cf">return</span> _onnx_nested_tensor_from_tensor_list(tensor_list)</span>
+<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a><span class="fl">7.</span>  </span>
+<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a><span class="fl">8.</span>          <span class="co"># </span><span class="al">TODO</span><span class="co"> make it support different-sized images</span></span>
+<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a><span class="fl">9.</span>          max_size <span class="op">=</span> _max_by_axis([<span class="bu">list</span>(img.shape) <span class="cf">for</span> img <span class="kw">in</span> tensor_list])</span>
+<span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a><span class="fl">10.</span>         <span class="co"># min_size = tuple(min(s) for s in zip(*[img.shape for img in tensor_list]))</span></span>
+<span id="cb3-11"><a href="#cb3-11" aria-hidden="true" tabindex="-1"></a><span class="fl">11.</span>         batch_shape <span class="op">=</span> [<span class="bu">len</span>(tensor_list)] <span class="op">+</span> max_size</span>
+<span id="cb3-12"><a href="#cb3-12" aria-hidden="true" tabindex="-1"></a><span class="fl">12.</span>         b, c, h, w <span class="op">=</span> batch_shape</span>
+<span id="cb3-13"><a href="#cb3-13" aria-hidden="true" tabindex="-1"></a><span class="fl">13.</span>         dtype <span class="op">=</span> tensor_list[<span class="dv">0</span>].dtype</span>
+<span id="cb3-14"><a href="#cb3-14" aria-hidden="true" tabindex="-1"></a><span class="fl">14.</span>         device <span class="op">=</span> tensor_list[<span class="dv">0</span>].device</span>
+<span id="cb3-15"><a href="#cb3-15" aria-hidden="true" tabindex="-1"></a><span class="fl">15.</span>         tensor <span class="op">=</span> torch.zeros(batch_shape, dtype<span class="op">=</span>dtype, device<span class="op">=</span>device)</span>
+<span id="cb3-16"><a href="#cb3-16" aria-hidden="true" tabindex="-1"></a><span class="fl">16.</span>         mask <span class="op">=</span> torch.ones((b, h, w), dtype<span class="op">=</span>torch.<span class="bu">bool</span>, device<span class="op">=</span>device)</span>
+<span id="cb3-17"><a href="#cb3-17" aria-hidden="true" tabindex="-1"></a><span class="fl">17.</span>         <span class="cf">for</span> img, pad_img, m <span class="kw">in</span> <span class="bu">zip</span>(tensor_list, tensor, mask):</span>
+<span id="cb3-18"><a href="#cb3-18" aria-hidden="true" tabindex="-1"></a><span class="fl">18.</span>             pad_img[: img.shape[<span class="dv">0</span>], : img.shape[<span class="dv">1</span>], : img.shape[<span class="dv">2</span>]].copy_(img)</span>
+<span id="cb3-19"><a href="#cb3-19" aria-hidden="true" tabindex="-1"></a><span class="fl">19.</span>             m[: img.shape[<span class="dv">1</span>], :img.shape[<span class="dv">2</span>]] <span class="op">=</span> <span class="va">False</span></span>
+<span id="cb3-20"><a href="#cb3-20" aria-hidden="true" tabindex="-1"></a><span class="fl">20.</span>     <span class="cf">else</span>:</span>
+<span id="cb3-21"><a href="#cb3-21" aria-hidden="true" tabindex="-1"></a><span class="fl">21.</span>         <span class="cf">raise</span> <span class="pp">ValueError</span>(<span class="st">'not supported'</span>)</span>
+<span id="cb3-22"><a href="#cb3-22" aria-hidden="true" tabindex="-1"></a><span class="fl">22.</span>     <span class="cf">return</span> NestedTensor(tensor, mask)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</div>
+<ol start="3" type="1">
+<li><code>if tensor_list[0].ndim == 3</code> is a check to see if the images have 3 channels.</li>
+<li><code>if torchvision._is_tracing()</code> is a check to see if tracing is running at the moment to export the model to ONNX format. exported ONNX model is used for inference or optimized further using Hardware specific SDK like TensoRT etc.</li>
+<li>We need not go in-depth into this as our focus is on understanding DeTr.</li>
+<li>In the rest of the function we calculate the maximum of channels, width, and height of all the images in the batch.</li>
+<li>Then create a padded image of size (max_channels, max_height, max_width) for each image and copy the image data to the padded image.</li>
+<li>Since now we have created a padded image, we keep track of what part of this padded image has actual image content by creating a binary mask.</li>
+<li>Why do we need to do this?</li>
+<li>Even though the transformer can handle variable sequence lengths. we do this to make the length of all the sequences in a batch to be same.</li>
+<li>This is needed to take advantage of computation parallelism in accelerators like GPU, TPU, to some extent even a CPU these days.</li>
+<li>Since sequence length input to the transformer is determined by the image(will show this later) so we make all the images in the batch the same size.</li>
+<li>This is similar to padding in transformers. And the mask is similar to the padding mask in transformers, it is used to stop attention modules from attending to the pad embeddings.</li>
+<li>We use the image data tensor and mask tensor to create <code>NestedTensor</code> object, which is used as a container to store them.</li>
+<li><code>NestedTensor</code>
+<ol type="1">
+<li>A class representing objects containing two fields, tensors and masks to store the image tensors and masks we calculated above.</li>
+<li>supports methods [<code>to()</code>, <code>decompose()</code>] and also implements dunder repr for printing.</li>
+<li><code>to()</code>: as expected moves the fields of the object (tensors, fields) between the device and host processors i.e, GPU, and CPU respectively.</li>
+<li><code>decompose()</code>: returns the fields as a tuple. <!-- </details> --></li>
+</ol></li>
+</ol>
+</section>
+<section id="line-4" class="level3 page-columns page-full">
+<h3 class="anchored" data-anchor-id="line-4">Line 4</h3>
+<div class="cell" data-execution_count="2">
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>features, pos <span class="op">=</span> <span class="va">self</span>.backbone(samples)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<ul>
+<li>Now that data preparation is completed we begin inference and the first setup is to use the backbone for feature extraction.</li>
+<li>So we call the backbone with <code>NestedTensor</code> we created as the argument.</li>
+<li>The backbone extracts features(BS, C, H, W) from the images. these features are then converted to a sequence of embeddings(BS, HW, C) and passed to the transformer to do object detection.</li>
+<li>Transformer handles the sequence as if it is a set, so it does not get the positional information that is required to perform object detection. to tackle this transformers in NLP use a positional embedding(usually super-imposed on word embeddings) that encodes the position of the word in a sentence. In DeTr the positional information is 2 dimensional i.e, Height and Width dimensions. DeTr does this by extending the 1d positional embedding from <span class="citation" data-cites="vaswani2017attention">(<a href="#ref-vaswani2017attention" role="doc-biblioref">Vaswani et al. 2017</a>)</span> to two dimensions.</li>
+<li>Positional embedding calculation is also part of the backbone in DeTr.</li>
+<li>Backbone is of type <code>Joiner</code>. <code>Joiner</code> is an <code>nn.Sequential</code> module that contains the actual backbone(CNN) and a positional_embedding module.
+<ul>
+<li><code>nn.Sequential</code> basically calls the <code>nn.Modules</code> in the order they are passed to it.</li>
+<li>So we first infer CNN followed by positional_embedding module on CNN output.</li>
+</ul></li>
+</ul>
+<section id="backbone---cnn" class="level4 page-columns page-full">
+<h4 class="anchored" data-anchor-id="backbone---cnn">Backbone - CNN</h4>
+<ul>
+<li>How does CNN inference work in DeTr?</li>
+<li>We can choose any of the resnet models as the backbone.</li>
+<li>Chosen resnet model is loaded from <code>torchvision.models</code> with pre-trained weights and batchnorm set to <code>torchvision.ops.FrozenBatchNorm2d</code>.</li>
+<li>In fine-tuning and inference BatchNorm is usually frozen, The logic behind freezing batchnorm for fine-tuning is that the batch statistics on fine-tuning dataset can be different from that of pre-trained dataset. And not freezing the batchnorm will cause the layer to learn the new statistics which means the rest of the layers now have to adapt to new statistics. so all the weights have to change significantly. Since the fine-tuning dataset is usually small compared to the pre-trained dataset trying to learn all the weights again will not result in a good model compared to freezing the batchnorm and nudging the weights a little with smaller learning rates. In practice, this should hold as long as both the fine-tuning and pre-trained datasets are reasonably similar.</li>
+<li>Resnet models are classifiers, they have a CNN backbone that returns the feature map (BS, C, H, W), followed by pooling and MLPs for classification.</li>
+<li>We only need the output of CNN, If the DeTr is performing object detection we collect the output of layer4 from the CNN.</li>
+<li>That is if DeTr is performing instance segmentation we collect the output of layer1 to layer4 of resnet.</li>
+<li>This output selection can be performed using <code>torchvision.models._utils.IntermediateLayerGetter</code> Which is a module wrapper that lets us collect intermediate layer outputs. It makes some assumptions about the module it is wrapping. refer docstring <a href="https://github.com/pytorch/vision/blob/main/torchvision/models/_utils.py#L8">here</a> for details.</li>
+<li>Usage looks like <code>IntermediateLayerGetter(backbone, return_layers={'layer4': "0"})</code> or <code>IntermediateLayerGetter(backbone, return_layers={"layer1": "0", "layer2": "1", "layer3": "2", "layer4": "3"})</code></li>
+<li>CNN takes the image tensor of shape (BS, C, H, W) and returns a feature map of shape (BS, C1, H1, W1) where C1 &gt; C, H1 &lt; H, W1 &lt; W.</li>
+<li>The mask using which we are keeping track of the location of image content in the padded image tensor also needs to be resized to indicate the region in the feature map that is related to the image content of the padded image tensor.</li>
+<li>This is done by creating a new <code>nn.Module</code> Backbone and using it to do the resize of mask operation after CNN inference. The implementation is linked below.</li>
+</ul>
+<div class="column-page">
+<div class="code-with-filename">
+<div class="code-with-filename-file">
+<pre><strong>detr/models/backbone.py: 72</strong></pre>
+</div>
+<div class="sourceCode" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="fl">1.</span> <span class="kw">def</span> forward(<span class="va">self</span>, tensor_list: NestedTensor):</span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a><span class="fl">2.</span>     xs <span class="op">=</span> <span class="va">self</span>.body(tensor_list.tensors)  <span class="co"># CNN inference</span></span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a><span class="fl">3.</span>     out: Dict[<span class="bu">str</span>, NestedTensor] <span class="op">=</span> {}</span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a><span class="fl">4.</span>     <span class="cf">for</span> name, x <span class="kw">in</span> xs.items():</span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a><span class="fl">5.</span>         m <span class="op">=</span> tensor_list.mask</span>
+<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a><span class="fl">6.</span>         <span class="cf">assert</span> m <span class="kw">is</span> <span class="kw">not</span> <span class="va">None</span></span>
+<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a><span class="fl">7.</span>         mask <span class="op">=</span> F.interpolate(m[<span class="va">None</span>].<span class="bu">float</span>(), size<span class="op">=</span>x.shape[<span class="op">-</span><span class="dv">2</span>:]).to(torch.<span class="bu">bool</span>)[<span class="dv">0</span>]  <span class="co"># Mask Resize</span></span>
+<span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a><span class="fl">8.</span>         out[name] <span class="op">=</span> NestedTensor(x, mask)</span>
+<span id="cb5-9"><a href="#cb5-9" aria-hidden="true" tabindex="-1"></a><span class="fl">9.</span>     <span class="cf">return</span> out</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</div>
+<ul>
+<li>The resize is done using <code>torch.nn.functional.interpolate</code>.</li>
+</ul>
+</section>
+<section id="backbone---positional-embedding" class="level4 page-columns page-full">
+<h4 class="anchored" data-anchor-id="backbone---positional-embedding">Backbone - Positional Embedding</h4>
+<ul>
+<li>The next step is to calculate the positional embedding to capture the 2d positional information of the feature map. This is done as shown below.</li>
+</ul>
+<div class="column-page">
+<div class="code-with-filename">
+<div class="code-with-filename-file">
+<pre><strong>detr/models/position_encoding.py: 28</strong></pre>
+</div>
+<div class="sourceCode" id="cb6"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="fl">1.</span>  <span class="kw">def</span> forward(<span class="va">self</span>, tensor_list: NestedTensor):</span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a><span class="fl">2.</span>      x <span class="op">=</span> tensor_list.tensors</span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a><span class="fl">3.</span>      mask <span class="op">=</span> tensor_list.mask</span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a><span class="fl">4.</span>      <span class="cf">assert</span> mask <span class="kw">is</span> <span class="kw">not</span> <span class="va">None</span></span>
+<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a><span class="fl">5.</span>      not_mask <span class="op">=</span> <span class="op">~</span>mask</span>
+<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a><span class="fl">6.</span>      y_embed <span class="op">=</span> not_mask.cumsum(<span class="dv">1</span>, dtype<span class="op">=</span>torch.float32)</span>
+<span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a><span class="fl">7.</span>      x_embed <span class="op">=</span> not_mask.cumsum(<span class="dv">2</span>, dtype<span class="op">=</span>torch.float32)</span>
+<span id="cb6-8"><a href="#cb6-8" aria-hidden="true" tabindex="-1"></a><span class="fl">8.</span>      <span class="cf">if</span> <span class="va">self</span>.normalize:</span>
+<span id="cb6-9"><a href="#cb6-9" aria-hidden="true" tabindex="-1"></a><span class="fl">9.</span>          eps <span class="op">=</span> <span class="fl">1e-6</span></span>
+<span id="cb6-10"><a href="#cb6-10" aria-hidden="true" tabindex="-1"></a><span class="fl">10.</span>         y_embed <span class="op">=</span> y_embed <span class="op">/</span> (y_embed[:, <span class="op">-</span><span class="dv">1</span>:, :] <span class="op">+</span> eps) <span class="op">*</span> <span class="va">self</span>.scale</span>
+<span id="cb6-11"><a href="#cb6-11" aria-hidden="true" tabindex="-1"></a><span class="fl">11.</span>         x_embed <span class="op">=</span> x_embed <span class="op">/</span> (x_embed[:, :, <span class="op">-</span><span class="dv">1</span>:] <span class="op">+</span> eps) <span class="op">*</span> <span class="va">self</span>.scale</span>
+<span id="cb6-12"><a href="#cb6-12" aria-hidden="true" tabindex="-1"></a><span class="fl">12.</span>  </span>
+<span id="cb6-13"><a href="#cb6-13" aria-hidden="true" tabindex="-1"></a><span class="fl">13.</span>     dim_t <span class="op">=</span> torch.arange(<span class="va">self</span>.num_pos_feats, dtype<span class="op">=</span>torch.float32, device<span class="op">=</span>x.device)</span>
+<span id="cb6-14"><a href="#cb6-14" aria-hidden="true" tabindex="-1"></a><span class="fl">14.</span>     dim_t <span class="op">=</span> <span class="va">self</span>.temperature <span class="op">**</span> (<span class="dv">2</span> <span class="op">*</span> (dim_t <span class="op">//</span> <span class="dv">2</span>) <span class="op">/</span> <span class="va">self</span>.num_pos_feats)</span>
+<span id="cb6-15"><a href="#cb6-15" aria-hidden="true" tabindex="-1"></a><span class="fl">15.</span> </span>
+<span id="cb6-16"><a href="#cb6-16" aria-hidden="true" tabindex="-1"></a><span class="fl">16.</span>     pos_x <span class="op">=</span> x_embed[:, :, :, <span class="va">None</span>] <span class="op">/</span> dim_t</span>
+<span id="cb6-17"><a href="#cb6-17" aria-hidden="true" tabindex="-1"></a><span class="fl">17.</span>     pos_y <span class="op">=</span> y_embed[:, :, :, <span class="va">None</span>] <span class="op">/</span> dim_t</span>
+<span id="cb6-18"><a href="#cb6-18" aria-hidden="true" tabindex="-1"></a><span class="fl">18.</span>     pos_x <span class="op">=</span> torch.stack((pos_x[:, :, :, <span class="dv">0</span>::<span class="dv">2</span>].sin(), pos_x[:, :, :, <span class="dv">1</span>::<span class="dv">2</span>].cos()), dim<span class="op">=</span><span class="dv">4</span>).flatten(<span class="dv">3</span>)</span>
+<span id="cb6-19"><a href="#cb6-19" aria-hidden="true" tabindex="-1"></a><span class="fl">19.</span>     pos_y <span class="op">=</span> torch.stack((pos_y[:, :, :, <span class="dv">0</span>::<span class="dv">2</span>].sin(), pos_y[:, :, :, <span class="dv">1</span>::<span class="dv">2</span>].cos()), dim<span class="op">=</span><span class="dv">4</span>).flatten(<span class="dv">3</span>)</span>
+<span id="cb6-20"><a href="#cb6-20" aria-hidden="true" tabindex="-1"></a><span class="fl">20.</span>     pos <span class="op">=</span> torch.cat((pos_y, pos_x), dim<span class="op">=</span><span class="dv">3</span>).permute(<span class="dv">0</span>, <span class="dv">3</span>, <span class="dv">1</span>, <span class="dv">2</span>)</span>
+<span id="cb6-21"><a href="#cb6-21" aria-hidden="true" tabindex="-1"></a><span class="fl">21.</span>     <span class="cf">return</span> pos</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</div>
+<ul>
+<li><span class="citation" data-cites="vaswani2017attention">(<a href="#ref-vaswani2017attention" role="doc-biblioref">Vaswani et al. 2017</a>)</span> experiments with learned positional embeddings and sinusoidal embeddings. we will discuss 2d sinusoidal embedding. Learned 2d embedding is straightforward it is learnt, and involves no specific engineering or tricks.</li>
+<li>Height, Width sinusoidal positional vectors are half the size of transformer embeddings. so that both concatenated(pos embedding) would be the size of the transformer embeddings.</li>
+<li>position embedding is then superimposed on input embeddings of the transformer encoder.</li>
+<li>I’ll show the results of the above function on a feature map of width 24 and height 16.</li>
+<li>The implementation uses x, and y terminology instead of width and height. here x is along the width and y is along the height dimension.</li>
+<li>In lines 5-7 we calculate x_embed and y_embed, these are mappings of each pixel location on the feature map to integers representing x, and y locations respectively.</li>
+<li>In Lines 8-11 we normalize these locations to integer maps so that the largest width and height are represented by 2<span class="math inline">\(\pi\)</span>. The below visualization shows the integer and normalized representations of height and width.</li>
+</ul>
+<p><img src="assets/1.png" class="img-fluid"></p>
+<ul>
+<li>I’ll use a 128-dimensional positional embedding. This implies that x and y positional embeddings are of 64 dimensions each.</li>
+<li><span class="citation" data-cites="vaswani2017attention">(<a href="#ref-vaswani2017attention" role="doc-biblioref">Vaswani et al. 2017</a>)</span> defines sinusoidal embeddings as follows.
+<ul>
+<li><span class="math inline">\(\Large PE_{(pos,2i)} = sin(pos/10000^{\frac{2i}{d_{model}}})\)</span></li>
+<li><span class="math inline">\(\Large PE_{(pos,2i+1)} = cos(pos/10000^{\frac{2i}{d_{model}}})\)</span></li>
+</ul></li>
+<li>As the dimension of the embedding increases the wavelength of sin and cos increases. the last dimension satisfies <span class="math inline">\(2i = d_{model}\)</span> so the wavelength becomes 10000 times larger i.e, the last dimension changes very little between consecutive positions.</li>
+<li>Lines 13-14 calculate this wavelength. The below visualization shows the wavelengths for each embedding dimension.</li>
+</ul>
+<p><img src="assets/2.png" class="img-fluid"></p>
+<ul>
+<li>Sinusoidal embeddings has the property that any <span class="math inline">\(PE_{pos+k}\)</span> can be represented as a linear function of <span class="math inline">\(PE_{pos}\)</span> this lets the transformer attend by relative positions.</li>
+<li>Finally in lines 16-19 we calculate the x, and y positional embeddings. The below visualization shows these embeddings.</li>
+</ul>
+<div class="column-screen">
+<p><img src="assets/3.png" class="img-fluid"></p>
+</div>
+<ul>
+<li>In line 20 we concatenate x, and y positional embeddings of 64 dimensions each to create the 2d positional embedding of 128 dimensions.</li>
+<li>This concludes CNN feature extraction and positional embedding calculation.</li>
+</ul>
+</section>
+</section>
+</section>
+<section id="line-8" class="level2">
+<h2 class="anchored" data-anchor-id="line-8">Line 8</h2>
+<div class="cell" data-execution_count="3">
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>hs <span class="op">=</span> <span class="va">self</span>.transformer(<span class="va">self</span>.input_proj(src), mask, <span class="va">self</span>.query_embed.weight, pos[<span class="op">-</span><span class="dv">1</span>])[<span class="dv">0</span>]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<ul>
+<li>We further reduce the number of channels in the feature map output from CNN to match the embedding size of the transformer. This is done by <code>self.input_proj</code> Which is a single <code>nn.Conv2d</code> layer with a convolutional kernel size of (1,1). The feature map output from input_proj of shape (BS, C, H, W) is passed to the transformer.</li>
+<li>Transformer parses feature map into a sequence of embeddings of shape (BS, HW, C) which can be interpreted as a BS-sized batch of HW number of embeddings, each of size C.</li>
+<li>Mask we calculated of shape (BS, H, W) is interpreted as a mask of shape (BS, HW). This is similar to the padding mask in NLP indicating pad tokens. here mask indicates the padding added to the image.</li>
+<li>Positional embedding of shape (BS, C, H, W) is passed to the transformer. This is also interpreted as (BS, HW, C) positional embedding sequence and superimposed on input embeddings.</li>
+<li>This concluded all the input required for the transformer encoder, But the transformer decoder needs query input, DeTr learns these query embeddings and calls them object query embeddings. The number of object query embeddings is fixed during training and this determines the maximum number of objects the architecture can predict.</li>
+<li>These object queries are typically very small compared to the number of anchors used in FRCNN-like architectures.</li>
+<li>Transformer decoder returns one result embedding for each query embedding then we use MLPs to calculate the bounding box location and object class from the result embedding.</li>
+<li>So the query embeddings effectively act as a replacement for anchor boxes and DeTr predicts a set of objects available in the image.</li>
+</ul>
+</section>
+
+<section id="comparision-with-faster-rcnn" class="level1">
+<h1>Comparision with Faster-RCNN</h1>
+<ul>
+<li>FRCNN and DeTr both have a CNN backbone to extract features from images to be used for object detection.</li>
+<li>FRCNN optionally has a Feature Pyramidal Network(FPN) to combine the syntactic featuers from shallow levels(Resnet.layer1) with symantic features from deeper levels(Resnet.layer4). DeTr does not have an FPN, But Deformable DeTr proposed by <span class="citation" data-cites="zhu2020deformable">(<a href="#ref-zhu2020deformable" role="doc-biblioref">Zhu et al. 2020</a>)</span> introduces an FPN layer.</li>
+<li>FRCNN then has a Region Proposal Network(RPN) that predicts objectness for each anchor indicating the presence of an object in the anchor region. DeTr does not do this and predicts objects in a single stage.</li>
+<li>FRCNN then has a Region Of Interest(ROI) Module that uses object predictions from RPN to collect the features related to each RPN object prediction from the output of FPN/backbone and predict the bounding box and object class. The bounding box is predicted relative to the anchor in this case. We use anchor location to estimate the location of the object in the image. These predictions are further post-processed through Non Maximum Suppression(NMS) to remove duplicates.</li>
+<li>DeTr on the other hand directly uses learned object queries. Each object query predicts an object in the image including no-object. the predicted objects are unique. This is done by training the network to predict unique objects through bipartite matching loss between GT and Object predictions.</li>
+</ul>
+
+
+
+</section>
+
+<div id="quarto-appendix" class="default"><section class="quarto-appendix-contents" role="doc-bibliography"><h2 class="anchored quarto-appendix-heading">References</h2><div id="refs" class="references csl-bib-body hanging-indent" role="doc-bibliography">
+<div id="ref-carion2020end" class="csl-entry" role="doc-biblioentry">
+Carion, Nicolas, Francisco Massa, Gabriel Synnaeve, Nicolas Usunier, Alexander Kirillov, and Sergey Zagoruyko. 2020. <span>“End-to-End Object Detection with Transformers.”</span> In <em>European Conference on Computer Vision</em>, 213–29. Springer.
+</div>
+<div id="ref-tamura2021qpic" class="csl-entry" role="doc-biblioentry">
+Tamura, Masato, Hiroki Ohashi, and Tomoaki Yoshinaga. 2021. <span>“Qpic: Query-Based Pairwise Human-Object Interaction Detection with Image-Wide Contextual Information.”</span> In <em>Proceedings of the IEEE/CVF Conference on Computer Vision and Pattern Recognition</em>, 10410–19.
+</div>
+<div id="ref-vaswani2017attention" class="csl-entry" role="doc-biblioentry">
+Vaswani, Ashish, Noam Shazeer, Niki Parmar, Jakob Uszkoreit, Llion Jones, Aidan N Gomez, Łukasz Kaiser, and Illia Polosukhin. 2017. <span>“Attention Is All You Need.”</span> <em>Advances in Neural Information Processing Systems</em> 30.
+</div>
+<div id="ref-zeng2022motr" class="csl-entry" role="doc-biblioentry">
+Zeng, Fangao, Bin Dong, Yuang Zhang, Tiancai Wang, Xiangyu Zhang, and Yichen Wei. 2022. <span>“Motr: End-to-End Multiple-Object Tracking with Transformer.”</span> In <em>European Conference on Computer Vision</em>, 659–75. Springer.
+</div>
+<div id="ref-zhu2020deformable" class="csl-entry" role="doc-biblioentry">
+Zhu, Xizhou, Weijie Su, Lewei Lu, Bin Li, Xiaogang Wang, and Jifeng Dai. 2020. <span>“Deformable Detr: Deformable Transformers for End-to-End Object Detection.”</span> <em>arXiv Preprint arXiv:2010.04159</em>.
+</div>
+</div></section></div></main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+window.document.addEventListener("DOMContentLoaded", function (event) {
+  const toggleBodyColorMode = (bsSheetEl) => {
+    const mode = bsSheetEl.getAttribute("data-mode");
+    const bodyEl = window.document.querySelector("body");
+    if (mode === "dark") {
+      bodyEl.classList.add("quarto-dark");
+      bodyEl.classList.remove("quarto-light");
+    } else {
+      bodyEl.classList.add("quarto-light");
+      bodyEl.classList.remove("quarto-dark");
+    }
+  }
+  const toggleBodyColorPrimary = () => {
+    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+    if (bsSheetEl) {
+      toggleBodyColorMode(bsSheetEl);
+    }
+  }
+  toggleBodyColorPrimary();  
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
+  const clipboard = new window.ClipboardJS('.code-copy-button', {
+    target: function(trigger) {
+      return trigger.previousElementSibling;
+    }
+  });
+  clipboard.on('success', function(e) {
+    // button target
+    const button = e.trigger;
+    // don't keep focus
+    button.blur();
+    // flash "checked"
+    button.classList.add('code-copy-button-checked');
+    var currentTitle = button.getAttribute("title");
+    button.setAttribute("title", "Copied!");
+    let tooltip;
+    if (window.bootstrap) {
+      button.setAttribute("data-bs-toggle", "tooltip");
+      button.setAttribute("data-bs-placement", "left");
+      button.setAttribute("data-bs-title", "Copied!");
+      tooltip = new bootstrap.Tooltip(button, 
+        { trigger: "manual", 
+          customClass: "code-copy-button-tooltip",
+          offset: [0, -8]});
+      tooltip.show();    
+    }
+    setTimeout(function() {
+      if (tooltip) {
+        tooltip.hide();
+        button.removeAttribute("data-bs-title");
+        button.removeAttribute("data-bs-toggle");
+        button.removeAttribute("data-bs-placement");
+      }
+      button.setAttribute("title", currentTitle);
+      button.classList.remove('code-copy-button-checked');
+    }, 1000);
+    // clear code selection
+    e.clearSelection();
+  });
+  function tippyHover(el, contentFn) {
+    const config = {
+      allowHTML: true,
+      content: contentFn,
+      maxWidth: 500,
+      delay: 100,
+      arrow: false,
+      appendTo: function(el) {
+          return el.parentElement;
+      },
+      interactive: true,
+      interactiveBorder: 10,
+      theme: 'quarto',
+      placement: 'bottom-start'
+    };
+    window.tippy(el, config); 
+  }
+  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+  for (var i=0; i<noterefs.length; i++) {
+    const ref = noterefs[i];
+    tippyHover(ref, function() {
+      // use id or data attribute instead here
+      let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+      try { href = new URL(href).hash; } catch {}
+      const id = href.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      return note.innerHTML;
+    });
+  }
+  const findCites = (el) => {
+    const parentEl = el.parentElement;
+    if (parentEl) {
+      const cites = parentEl.dataset.cites;
+      if (cites) {
+        return {
+          el,
+          cites: cites.split(' ')
+        };
+      } else {
+        return findCites(el.parentElement)
+      }
+    } else {
+      return undefined;
+    }
+  };
+  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+  for (var i=0; i<bibliorefs.length; i++) {
+    const ref = bibliorefs[i];
+    const citeInfo = findCites(ref);
+    if (citeInfo) {
+      tippyHover(citeInfo.el, function() {
+        var popup = window.document.createElement('div');
+        citeInfo.cites.forEach(function(cite) {
+          var citeDiv = window.document.createElement('div');
+          citeDiv.classList.add('hanging-indent');
+          citeDiv.classList.add('csl-entry');
+          var biblioDiv = window.document.getElementById('ref-' + cite);
+          if (biblioDiv) {
+            citeDiv.innerHTML = biblioDiv.innerHTML;
+          }
+          popup.appendChild(citeDiv);
+        });
+        return popup.innerHTML;
+      });
+    }
+  }
+});
+</script>
+</div> <!-- /content -->
+
+
+
+</body></html>

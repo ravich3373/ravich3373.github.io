@@ -1,0 +1,26 @@
+[
+  {
+    "listing": "/LLVMs.html",
+    "items": [
+      "/posts_LLVMs/diffusion.html"
+    ]
+  },
+  {
+    "listing": "/notes.html",
+    "items": []
+  },
+  {
+    "listing": "/posts.html",
+    "items": [
+      "/posts/grpe.html",
+      "/posts/detr.html",
+      "/posts/mdp.html"
+    ]
+  },
+  {
+    "listing": "/projects.html",
+    "items": [
+      "/projects/llm_agents.html"
+    ]
+  }
+]
