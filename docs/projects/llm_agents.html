@@ -6,7 +6,7 @@
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
-<meta name="dcterms.date" content="2024-03-13">
+<meta name="dcterms.date" content="2024-03-15">
 
 <title>Raviteja Chukkapalli - LLMs playing games</title>
 <style>
@@ -123,11 +123,15 @@ gtag('config', 'G-6C8LEPK16T', { 'anonymize_ip': true});
    
   <ul>
   <li><a href="#tic-tac-toe-propmt-based-agents" id="toc-tic-tac-toe-propmt-based-agents" class="nav-link active" data-scroll-target="#tic-tac-toe-propmt-based-agents">Tic-Tac-Toe, Propmt-based Agents</a></li>
+  <li><a href="#tic-tac-toe-chain-of-though-prompt-based-agents" id="toc-tic-tac-toe-chain-of-though-prompt-based-agents" class="nav-link" data-scroll-target="#tic-tac-toe-chain-of-though-prompt-based-agents">Tic-Tac-Toe, Chain-of-Though Prompt based Agents</a>
+  <ul class="collapse">
+  <li><a href="#llama2_7b" id="toc-llama2_7b" class="nav-link" data-scroll-target="#llama2_7b">llama2_7b</a></li>
+  </ul></li>
   </ul>
 </nav>
     </div>
 <!-- main -->
-<main class="content" id="quarto-document-content">
+<main class="content page-columns page-full" id="quarto-document-content">
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
@@ -146,7 +150,7 @@ gtag('config', 'G-6C8LEPK16T', { 'anonymize_ip': true});
     <div>
     <div class="quarto-title-meta-heading">Published</div>
     <div class="quarto-title-meta-contents">
-      <p class="date">March 13, 2024</p>
+      <p class="date">March 15, 2024</p>
     </div>
   </div>
   
@@ -170,6 +174,10 @@ gtag('config', 'G-6C8LEPK16T', { 'anonymize_ip': true});
 <p>This question is asked a lot these days! and not so coincidentally a lot of research groups are working on this. One direction this research has taken is to use games to evaluate this hypothesis.</p>
 <p>The first step would be to make an LLM understand the game state (observations) and take valid actions(play moves). Knowing the strong instruction-following capacity of LLMs (instruction-tuned LLM) this should be achievable!</p>
 <p>Here are some visualizations of LLMs playing against classical AI agents.</p>
+<ul>
+<li>7B parameter LLMs are not great at the tasks as can be seen from the visualizations.</li>
+<li>I’ll soon upload the visualizations for larger LLMs.</li>
+</ul>
 <section id="tic-tac-toe-propmt-based-agents" class="level2">
 <h2 class="anchored" data-anchor-id="tic-tac-toe-propmt-based-agents">Tic-Tac-Toe, Propmt-based Agents</h2>
 <ul>
@@ -212,8 +220,22 @@ gtag('config', 'G-6C8LEPK16T', { 'anonymize_ip': true});
 <p></p><figcaption class="figure-caption">Figure&nbsp;2: MISTRAL 7B</figcaption><p></p>
 </figure>
 </div>
+</section>
+<section id="tic-tac-toe-chain-of-though-prompt-based-agents" class="level2 page-columns page-full">
+<h2 class="anchored" data-anchor-id="tic-tac-toe-chain-of-though-prompt-based-agents">Tic-Tac-Toe, Chain-of-Though Prompt based Agents</h2>
+<section id="llama2_7b" class="level3 page-columns page-full">
+<h3 class="anchored" data-anchor-id="llama2_7b">llama2_7b</h3>
+<ol type="1">
+<li>Topmost paragraph is the system prompt.</li>
+<li>Second paragraph is the user prompt.</li>
+<li>LLM response is the last paragraph.</li>
+</ol>
+<div class="column-page">
+<p><video src="assets/llm_agents/cot_agents/llama2.mp4" class="img-fluid" controls=""><a href="assets/llm_agents/cot_agents/llama2.mp4">Video</a></video></p>
+</div>
 
 
+</section>
 </section>
 
 </main> <!-- /main -->

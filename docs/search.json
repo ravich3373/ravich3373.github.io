@@ -74,7 +74,7 @@
     "href": "projects.html",
     "title": "Random",
     "section": "",
-    "text": "LLMs playing games\n\n\n\n\n\n\n\nRandom\n\n\nVisualization\n\n\n\n\n\n\n\n\n\n\n\nMar 13, 2024\n\n\n\n\n\n\nNo matching items"
+    "text": "LLMs playing games\n\n\n\n\n\n\n\nRandom\n\n\nVisualization\n\n\n\n\n\n\n\n\n\n\n\nMar 15, 2024\n\n\n\n\n\n\nNo matching items"
   },
   {
     "objectID": "projects/llm_agents.html",
@@ -89,5 +89,12 @@
     "title": "LLMs playing games",
     "section": "Tic-Tac-Toe, Propmt-based Agents",
     "text": "Tic-Tac-Toe, Propmt-based Agents\n\nGame: Tic-Tac-Toe\nLLMs: LLAMA2 7B, MISTRAL 7B\nAgent Design: Propmt based, i.e, game instructions and current state are given in the input prompt to the LLM.\nReasoning Module: None/LLM itself.\n\nThe Player using 🟥 Is the LLM Agent\nThe Player using 🟦 Is Monte Carlo Tree Search.\n\n\n\n\n\n\n\n\n\n\n\n\n\nFigure 1: LLAMA2 7B\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nFigure 2: MISTRAL 7B"
+  },
+  {
+    "objectID": "projects/llm_agents.html#tic-tac-toe-chain-of-though-prompt-based-agents",
+    "href": "projects/llm_agents.html#tic-tac-toe-chain-of-though-prompt-based-agents",
+    "title": "LLMs playing games",
+    "section": "Tic-Tac-Toe, Chain-of-Though Prompt based Agents",
+    "text": "Tic-Tac-Toe, Chain-of-Though Prompt based Agents\n\nllama2_7b\n\nTopmost paragraph is the system prompt.\nSecond paragraph is the user prompt.\nLLM response is the last paragraph.\n\n\nVideo"
   }
 ]
