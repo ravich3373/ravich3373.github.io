@@ -235,6 +235,38 @@ gtag('config', 'G-6C8LEPK16T', { 'anonymize_ip': true});
 </div>
 
 
+<section id="RLHF finetuning for improving performance" class="level2 page-columns page-full">
+  <h2 class="anchored" data-anchor-id="RLHF finetuning for improving performance">RLHF finetuning for strategic reasoning</h2>
+  <section id="llama2_7b" class="level3 page-columns page-full">
+  <h3 class="anchored" data-anchor-id="llama2_7b">llama2_7b</h3>
+  <p>A traditional RLHF pipeline has the following steps</p>
+  <ul type="1">
+  <li>Gather preference data</li>
+  <li>Train a reward model</li>
+  <li>Use feedback from the reward model to train the LLM using PPO</li>
+  </ul>
+  <div class="image-container" style="text-align: center; margin: 20px;">
+    <img src="assets/llm_agents/rlhf/RLHF.png" alt="A standard RLHF pipeline" style= "width: 500px; height: 500px">
+    <div class="caption">A standard RLHF pipeline</div>
+</div>
+  <p>We adapt this pipeline for training LLM agents to play strategic games. Instead of gathering preference data and then training a reward model, we directly 
+    train a Deep Q Network model using self play. This Deep Q Network model will then be used to provide reward values for responses from the LLM. </p>
+  <p> The whole pipeline is as shown below:</p>
+  <ul type="1">
+    <li>Train DQN using self-play to play games from the Open Spiel framework</li>
+    <li>Evaluate the DQN against random agent and another DQN agent and store it in state buffer</li>
+    <li>Generate rewards for state, action pairs in the replay buffer</li>
+    <li>Generate prompts for each state, prompt LLM to get it's response. Extract action using regex</li>>
+    <li>Use reward from the DQN as feedback, train the LLM using PPO</li>
+  </ul>
+  <p> The above steps can be repeated for multiple games and a multi-game dataset of state/action pairs along with their rewards can be created. In particular we generate a five game dataset which includes data from the games Tic-Tac-Toe, Kuhn's Poker, Nim, Liar's dice, and Pig. The reason we restrict ourselves to these games is that they have an easy structure which makes it relatively simpler to engineer prompts and regexes for them.</p>
+  <div class="image-container" style="text-align: center; margin: 20px;">
+    <img src="assets/llm_agents/rlhf/DQN-RLHF.png" alt="DQN RLHF pipeline for strategic reasoning over games" style= "width: 700px; height: 400px;">
+    <div class="caption">DQN RLHF pipeline for strategic reasoning over games</div>
+</div>
+</section>  
+
+
 </section>
 </section>
 
