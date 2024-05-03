@@ -6,9 +6,8 @@
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
-<meta name="dcterms.date" content="2023-01-05">
 
-<title>Raviteja Chukkapalli - Planning in LLM Agent</title>
+<title>Raviteja Chukkapalli - matplotlib demo</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -181,64 +180,21 @@ gtag('config', 'G-6C8LEPK16T', { 'anonymize_ip': true});
 <!-- sidebar -->
 <!-- margin-sidebar -->
     <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
-        <nav id="TOC" role="doc-toc" class="toc-active">
-    <h2 id="toc-title">On this page</h2>
-   
-  <ul>
-  <li><a href="#what-is-planning-why-look-at-it-seperately" id="toc-what-is-planning-why-look-at-it-seperately" class="nav-link active" data-scroll-target="#what-is-planning-why-look-at-it-seperately">What is planning, why look at it seperately?</a></li>
-  <li><a href="#popular-approaches" id="toc-popular-approaches" class="nav-link" data-scroll-target="#popular-approaches">Popular Approaches</a>
-  <ul class="collapse">
-  <li><a href="#react" id="toc-react" class="nav-link" data-scroll-target="#react">ReAct</a></li>
-  <li><a href="#cot" id="toc-cot" class="nav-link" data-scroll-target="#cot">CoT</a></li>
-  <li><a href="#tot" id="toc-tot" class="nav-link" data-scroll-target="#tot">ToT</a></li>
-  <li><a href="#got" id="toc-got" class="nav-link" data-scroll-target="#got">GoT</a></li>
-  <li><a href="#cot-sc" id="toc-cot-sc" class="nav-link" data-scroll-target="#cot-sc">CoT-SC</a></li>
-  <li><a href="#llmp" id="toc-llmp" class="nav-link" data-scroll-target="#llmp">LLM+P</a></li>
-  <li><a href="#llmppdl" id="toc-llmppdl" class="nav-link" data-scroll-target="#llmppdl">LLM+PPDL</a></li>
-  <li><a href="#reflexion" id="toc-reflexion" class="nav-link" data-scroll-target="#reflexion">Reflexion</a></li>
-  <li><a href="#critic" id="toc-critic" class="nav-link" data-scroll-target="#critic">CRITIC</a></li>
-  <li><a href="#self-refine" id="toc-self-refine" class="nav-link" data-scroll-target="#self-refine">Self-Refine</a></li>
-  <li><a href="#rememberer" id="toc-rememberer" class="nav-link" data-scroll-target="#rememberer">REMEMBERER</a></li>
-  <li><a href="#memorybank" id="toc-memorybank" class="nav-link" data-scroll-target="#memorybank">MemoryBank</a></li>
-  </ul></li>
-  <li><a href="#agent-evaluation" id="toc-agent-evaluation" class="nav-link" data-scroll-target="#agent-evaluation">Agent Evaluation</a>
-  <ul class="collapse">
-  <li><a href="#datasets" id="toc-datasets" class="nav-link" data-scroll-target="#datasets">Datasets</a>
-  <ul class="collapse">
-  <li><a href="#hotpotqa" id="toc-hotpotqa" class="nav-link" data-scroll-target="#hotpotqa">HotPotQA</a></li>
-  <li><a href="#alfworld" id="toc-alfworld" class="nav-link" data-scroll-target="#alfworld">ALFWorld</a></li>
-  <li><a href="#web-shop" id="toc-web-shop" class="nav-link" data-scroll-target="#web-shop">Web-shop</a></li>
-  <li><a href="#fever-fact-extraction-and-verification" id="toc-fever-fact-extraction-and-verification" class="nav-link" data-scroll-target="#fever-fact-extraction-and-verification">FEVER (Fact Extraction and VERification)</a></li>
-  <li><a href="#webarena" id="toc-webarena" class="nav-link" data-scroll-target="#webarena">WebArena</a></li>
-  <li><a href="#aitw-android-in-the-wild" id="toc-aitw-android-in-the-wild" class="nav-link" data-scroll-target="#aitw-android-in-the-wild">AitW (Android in the Wild)</a></li>
-  </ul></li>
-  <li><a href="#papers" id="toc-papers" class="nav-link" data-scroll-target="#papers">Papers</a></li>
-  </ul></li>
-  </ul>
-</nav>
+        
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title">Planning in LLM Agent</h1>
-  <div class="quarto-categories">
-    <div class="quarto-category">Overview</div>
-  </div>
-  </div>
+<h1 class="title">matplotlib demo</h1>
+</div>
 
 
 
 <div class="quarto-title-meta">
 
     
-    <div>
-    <div class="quarto-title-meta-heading">Published</div>
-    <div class="quarto-title-meta-contents">
-      <p class="date">January 5, 2023</p>
-    </div>
-  </div>
   
     
   </div>
@@ -246,8 +202,8 @@ gtag('config', 'G-6C8LEPK16T', { 'anonymize_ip': true});
 
 </header>
 
-<div id="fig-polar" class="quarto-figure quarto-figure-center anchored">
-<figure class="figure">
+<p>For a demonstration of a line plot on a polar axis, see <a href="#fig-polar">Figure&nbsp;1</a>.</p>
+<div class="cell" data-execution_count="1">
 <details>
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
@@ -263,130 +219,17 @@ gtag('config', 'G-6C8LEPK16T', { 'anonymize_ip': true});
 <span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a>ax.grid(<span class="va">True</span>)</span>
 <span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
-<p></p><figcaption class="figure-caption">Figure&nbsp;1: <strong>?(caption)</strong></figcaption><p></p>
+<div class="cell-output cell-output-display">
+<div id="fig-polar" class="quarto-figure quarto-figure-center anchored">
+<figure class="figure">
+<p><img src="test_files/figure-html/fig-polar-output-1.png" width="450" height="439" class="figure-img"></p>
+<p></p><figcaption class="figure-caption">Figure&nbsp;1: A line plot on a polar axis</figcaption><p></p>
 </figure>
 </div>
-<section id="what-is-planning-why-look-at-it-seperately" class="level1">
-<h1>What is planning, why look at it seperately?</h1>
-</section>
-<section id="popular-approaches" class="level1">
-<h1>Popular Approaches</h1>
-<section id="react" class="level2">
-<h2 class="anchored" data-anchor-id="react">ReAct</h2>
-<div class="cell" data-execution_count="2">
-<details>
-<summary>Code</summary>
-<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> ipywidgets <span class="im">as</span> widgets</span>
-<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> ipywidgets <span class="im">import</span> Button, Layout, HBox</span>
-<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> json</span>
-<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a><span class="cf">with</span> <span class="bu">open</span>(<span class="st">"assets/op.jsonl"</span>) <span class="im">as</span> fp:</span>
-<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a>    log_lines <span class="op">=</span> []</span>
-<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> l <span class="kw">in</span> fp.readlines():</span>
-<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a>        log <span class="op">=</span> json.loads(l)</span>
-<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a>        log_lines.append(log)</span>
-<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-11"><a href="#cb2-11" aria-hidden="true" tabindex="-1"></a>log <span class="op">=</span> log_lines[<span class="op">-</span><span class="dv">1</span>]</span>
-<span id="cb2-12"><a href="#cb2-12" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-13"><a href="#cb2-13" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> turn <span class="kw">in</span> log:</span>
-<span id="cb2-14"><a href="#cb2-14" aria-hidden="true" tabindex="-1"></a>  <span class="cf">if</span> <span class="kw">not</span> turn[<span class="st">"agent"</span>]</span>
-<span id="cb2-15"><a href="#cb2-15" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-16"><a href="#cb2-16" aria-hidden="true" tabindex="-1"></a>b<span class="op">=</span>widgets.HTML(</span>
-<span id="cb2-17"><a href="#cb2-17" aria-hidden="true" tabindex="-1"></a>    value<span class="op">=</span><span class="st">"Hello &lt;p&gt;World&lt;/p&gt;&lt;p&gt;World&lt;/p&gt;&lt;p&gt;World&lt;/p&gt;&lt;p&gt;World&lt;/p&gt;&lt;p&gt;World&lt;/p&gt;&lt;p&gt;World&lt;/p&gt;&lt;p&gt;World&lt;/p&gt;&lt;p&gt;World&lt;/p&gt;"</span>,</span>
-<span id="cb2-18"><a href="#cb2-18" aria-hidden="true" tabindex="-1"></a>    placeholder<span class="op">=</span><span class="st">'Some HTML'</span>,</span>
-<span id="cb2-19"><a href="#cb2-19" aria-hidden="true" tabindex="-1"></a>    description<span class="op">=</span><span class="st">'Some HTML'</span>,</span>
-<span id="cb2-20"><a href="#cb2-20" aria-hidden="true" tabindex="-1"></a>    disabled<span class="op">=</span><span class="va">True</span></span>
-<span id="cb2-21"><a href="#cb2-21" aria-hidden="true" tabindex="-1"></a>)</span>
-<span id="cb2-22"><a href="#cb2-22" aria-hidden="true" tabindex="-1"></a>a <span class="op">=</span> HBox([b], layout<span class="op">=</span>Layout(height<span class="op">=</span><span class="st">'50px'</span>, overflow_y<span class="op">=</span><span class="st">'auto'</span>))</span>
-<span id="cb2-23"><a href="#cb2-23" aria-hidden="true" tabindex="-1"></a>display(a)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</details>
 </div>
-</section>
-<section id="cot" class="level2">
-<h2 class="anchored" data-anchor-id="cot">CoT</h2>
-</section>
-<section id="tot" class="level2">
-<h2 class="anchored" data-anchor-id="tot">ToT</h2>
-</section>
-<section id="got" class="level2">
-<h2 class="anchored" data-anchor-id="got">GoT</h2>
-</section>
-<section id="cot-sc" class="level2">
-<h2 class="anchored" data-anchor-id="cot-sc">CoT-SC</h2>
-</section>
-<section id="llmp" class="level2">
-<h2 class="anchored" data-anchor-id="llmp">LLM+P</h2>
-</section>
-<section id="llmppdl" class="level2">
-<h2 class="anchored" data-anchor-id="llmppdl">LLM+PPDL</h2>
-</section>
-<section id="reflexion" class="level2">
-<h2 class="anchored" data-anchor-id="reflexion">Reflexion</h2>
-</section>
-<section id="critic" class="level2">
-<h2 class="anchored" data-anchor-id="critic">CRITIC</h2>
-</section>
-<section id="self-refine" class="level2">
-<h2 class="anchored" data-anchor-id="self-refine">Self-Refine</h2>
-</section>
-<section id="rememberer" class="level2">
-<h2 class="anchored" data-anchor-id="rememberer">REMEMBERER</h2>
-</section>
-<section id="memorybank" class="level2">
-<h2 class="anchored" data-anchor-id="memorybank">MemoryBank</h2>
-</section>
-</section>
-<section id="agent-evaluation" class="level1">
-<h1>Agent Evaluation</h1>
-<section id="datasets" class="level2">
-<h2 class="anchored" data-anchor-id="datasets">Datasets</h2>
-<section id="hotpotqa" class="level3">
-<h3 class="anchored" data-anchor-id="hotpotqa">HotPotQA</h3>
-<ol type="1">
-<li>question, 2 types, comparision and bridge.</li>
-<li>Ask question, give related material</li>
-<li>get answer.</li>
-</ol>
-</section>
-<section id="alfworld" class="level3">
-<h3 class="anchored" data-anchor-id="alfworld">ALFWorld</h3>
-<ol type="1">
-<li>interactive text-world environments from ALFRED dataset.</li>
-</ol>
-</section>
-<section id="web-shop" class="level3">
-<h3 class="anchored" data-anchor-id="web-shop">Web-shop</h3>
-<ol type="1">
-<li>RL env similar to e-comerce websites.</li>
-</ol>
-</section>
-<section id="fever-fact-extraction-and-verification" class="level3">
-<h3 class="anchored" data-anchor-id="fever-fact-extraction-and-verification">FEVER (Fact Extraction and VERification)</h3>
-<ol type="1">
-<li>Classification, supported, refuted, not enough info</li>
-<li>given a claim and wiki url for evidence, classify</li>
-</ol>
-</section>
-<section id="webarena" class="level3">
-<h3 class="anchored" data-anchor-id="webarena">WebArena</h3>
-<ol type="1">
-<li></li>
-</ol>
-</section>
-<section id="aitw-android-in-the-wild" class="level3">
-<h3 class="anchored" data-anchor-id="aitw-android-in-the-wild">AitW (Android in the Wild)</h3>
-<ol type="1">
-<li></li>
-</ol>
-</section>
-</section>
-<section id="papers" class="level2">
-<h2 class="anchored" data-anchor-id="papers">Papers</h2>
-<p>Autonomous Evaluation and Refinement of Digital Agents</p>
+</div>
 
 
-</section>
-</section>
 
 </main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">

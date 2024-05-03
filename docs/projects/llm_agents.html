@@ -6,7 +6,7 @@
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
-<meta name="dcterms.date" content="2024-03-15">
+<meta name="dcterms.date" content="2024-05-03">
 
 <title>Raviteja Chukkapalli - LLMs playing games</title>
 <style>
@@ -20,6 +20,25 @@ ul.task-list li input[type="checkbox"] {
   width: 0.8em;
   margin: 0 0.8em 0.2em -1.6em;
   vertical-align: middle;
+}
+div.csl-bib-body { }
+div.csl-entry {
+  clear: both;
+}
+.hanging div.csl-entry {
+  margin-left:2em;
+  text-indent:-2em;
+}
+div.csl-left-margin {
+  min-width:2em;
+  float:left;
+}
+div.csl-right-inline {
+  margin-left:2em;
+  padding-left:1em;
+}
+div.csl-indent {
+  margin-left: 2em;
 }
 </style>
 
@@ -122,7 +141,19 @@ gtag('config', 'G-6C8LEPK16T', { 'anonymize_ip': true});
     <h2 id="toc-title">On this page</h2>
    
   <ul>
-  <li><a href="#tic-tac-toe-propmt-based-agents" id="toc-tic-tac-toe-propmt-based-agents" class="nav-link active" data-scroll-target="#tic-tac-toe-propmt-based-agents">Tic-Tac-Toe, Propmt-based Agents</a></li>
+  <li><a href="#introduction" id="toc-introduction" class="nav-link active" data-scroll-target="#introduction">Introduction</a></li>
+  <li><a href="#evaluation" id="toc-evaluation" class="nav-link" data-scroll-target="#evaluation">Evaluation</a></li>
+  <li><a href="#architectural-choices-involved-in-llm-based-agent-design" id="toc-architectural-choices-involved-in-llm-based-agent-design" class="nav-link" data-scroll-target="#architectural-choices-involved-in-llm-based-agent-design">Architectural choices involved in LLM Based Agent design</a></li>
+  <li><a href="#in-context-methods" id="toc-in-context-methods" class="nav-link" data-scroll-target="#in-context-methods">In-Context Methods</a>
+  <ul class="collapse">
+  <li><a href="#our-approach" id="toc-our-approach" class="nav-link" data-scroll-target="#our-approach">Our-Approach</a></li>
+  </ul></li>
+  <li><a href="#in-weight-methods" id="toc-in-weight-methods" class="nav-link" data-scroll-target="#in-weight-methods">In-Weight Methods</a>
+  <ul class="collapse">
+  <li><a href="#our-approach-1" id="toc-our-approach-1" class="nav-link" data-scroll-target="#our-approach-1">Our-Approach</a></li>
+  </ul></li>
+  <li><a href="#visualizations" id="toc-visualizations" class="nav-link" data-scroll-target="#visualizations">Visualizations</a></li>
+  <li><a href="#tic-tac-toe-propmt-based-agents" id="toc-tic-tac-toe-propmt-based-agents" class="nav-link" data-scroll-target="#tic-tac-toe-propmt-based-agents">Tic-Tac-Toe, Propmt-based Agents</a></li>
   <li><a href="#tic-tac-toe-chain-of-though-prompt-based-agents" id="toc-tic-tac-toe-chain-of-though-prompt-based-agents" class="nav-link" data-scroll-target="#tic-tac-toe-chain-of-though-prompt-based-agents">Tic-Tac-Toe, Chain-of-Though Prompt based Agents</a>
   <ul class="collapse">
   <li><a href="#llama2_7b" id="toc-llama2_7b" class="nav-link" data-scroll-target="#llama2_7b">llama2_7b</a></li>
@@ -150,7 +181,7 @@ gtag('config', 'G-6C8LEPK16T', { 'anonymize_ip': true});
     <div>
     <div class="quarto-title-meta-heading">Published</div>
     <div class="quarto-title-meta-contents">
-      <p class="date">March 15, 2024</p>
+      <p class="date">May 3, 2024</p>
     </div>
   </div>
   
@@ -171,13 +202,163 @@ gtag('config', 'G-6C8LEPK16T', { 'anonymize_ip': true});
 </div>
 </div>
 </div>
-<p>This question is asked a lot these days! and not so coincidentally a lot of research groups are working on this. One direction this research has taken is to use games to evaluate this hypothesis.</p>
-<p>The first step would be to make an LLM understand the game state (observations) and take valid actions(play moves). Knowing the strong instruction-following capacity of LLMs (instruction-tuned LLM) this should be achievable!</p>
+<section id="introduction" class="level2">
+<h2 class="anchored" data-anchor-id="introduction">Introduction</h2>
+<p>In-context learning and instruction following capabilities of LLMs combined with their large world knowledge made them great a solving system 1<span class="citation" data-cites="kahneman2011thinking">(<a href="#ref-kahneman2011thinking" role="doc-biblioref">Kahneman 2011</a>)</span> tasks. The next obvious question would be to evaluate their performance in tasks that require deliberate thinking and planning i.e.&nbsp;system 2<span class="citation" data-cites="kahneman2011thinking">(<a href="#ref-kahneman2011thinking" role="doc-biblioref">Kahneman 2011</a>)</span> tasks.</p>
+</section>
+<section id="evaluation" class="level2">
+<h2 class="anchored" data-anchor-id="evaluation">Evaluation</h2>
+<p>Recent works try to evaluate system 2 capabilites of LLMs through</p>
+<ol type="1">
+<li>Planning to solve tasks in interactive text-world environments
+<ol type="1">
+<li>ALFWorld <span class="citation" data-cites="shridhar2020alfworld">(<a href="#ref-shridhar2020alfworld" role="doc-biblioref">Shridhar et al. 2020</a>)</span>.</li>
+<li>Web-Shop <span class="citation" data-cites="yao2022webshop">(<a href="#ref-yao2022webshop" role="doc-biblioref">Yao et al. 2022</a>)</span>.</li>
+</ol></li>
+<li>Fact Checking tasks
+<ol type="1">
+<li>FEVER <span class="citation" data-cites="thorne2018fever">(<a href="#ref-thorne2018fever" role="doc-biblioref">Thorne et al. 2018</a>)</span></li>
+</ol></li>
+<li>Question Answering tasks
+<ol type="1">
+<li>HotPotQA <span class="citation" data-cites="yang2018hotpotqa">(<a href="#ref-yang2018hotpotqa" role="doc-biblioref">Yang et al. 2018</a>)</span></li>
+</ol></li>
+</ol>
+<p>The issue with these evaluations is that an LLM with prior knowledge of facts can easily solve the tasks without deliberate thinking and planning.</p>
+<p>In their new work <span class="citation" data-cites="duan2024gtbench">(<a href="#ref-duan2024gtbench" role="doc-biblioref">Duan et al. 2024</a>)</span> Propose to evaluate deliberate thinking through game-theoretic tasks.</p>
+<blockquote class="blockquote">
+<p>“the extensive background and intricate details involved in role-play-based games dilute the pureness of logic and strategic reasoning that is typically found in game theoretic tasks”</p>
+</blockquote>
+<p>They Propose GTBench a collection of 11 games and suggest evaluating LLM capabilities through LLM vs LLM or LLM vs Classical Agent games.</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="agents/gtbench_games.png" class="img-fluid figure-img"></p>
+<p></p><figcaption class="figure-caption">11 Games part of GTBench <span class="citation" data-cites="duan2024gtbench">(<a href="#ref-duan2024gtbench" role="doc-biblioref">Duan et al. 2024</a>)</span></figcaption><p></p>
+</figure>
+</div>
+<p>We use GTBench to evaluate the Planning capabilities of LLMs.</p>
+</section>
+<section id="architectural-choices-involved-in-llm-based-agent-design" class="level2">
+<h2 class="anchored" data-anchor-id="architectural-choices-involved-in-llm-based-agent-design">Architectural choices involved in LLM Based Agent design</h2>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="agents/llm_arch.png" class="img-fluid figure-img"></p>
+<p></p><figcaption class="figure-caption">As Surveyed by <span class="citation" data-cites="huang2024understanding">(<a href="#ref-huang2024understanding" role="doc-biblioref">Huang et al. 2024</a>)</span></figcaption><p></p>
+</figure>
+</div>
+</section>
+<section id="in-context-methods" class="level2">
+<h2 class="anchored" data-anchor-id="in-context-methods">In-Context Methods</h2>
+<section id="our-approach" class="level3">
+<h3 class="anchored" data-anchor-id="our-approach">Our-Approach</h3>
+<section id="results" class="level4">
+<h4 class="anchored" data-anchor-id="results">Results</h4>
+<table class="table">
+<colgroup>
+<col style="width: 18%">
+<col style="width: 23%">
+<col style="width: 19%">
+<col style="width: 19%">
+<col style="width: 18%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>NRA</th>
+<th>Prompt-GPT4 Agent</th>
+<th>CoT-GPT4 Agent</th>
+<th>ToT-GPT4 Agent</th>
+<th>IC-MCTS Agent</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>VS MCTS</td>
+<td>-0.66</td>
+<td>-0.3</td>
+<td>-0.5</td>
+<td>-0.75</td>
+</tr>
+<tr class="even">
+<td>VS Rand-Agent</td>
+<td>0.5</td>
+<td>0.5454</td>
+<td>0.25</td>
+<td></td>
+</tr>
+</tbody>
+</table>
+</section>
+</section>
+</section>
+<section id="in-weight-methods" class="level2">
+<h2 class="anchored" data-anchor-id="in-weight-methods">In-Weight Methods</h2>
+<section id="our-approach-1" class="level3">
+<h3 class="anchored" data-anchor-id="our-approach-1">Our-Approach</h3>
+<section id="rlhf-finetuning-for-strategic-reasoning" class="level4">
+<h4 class="anchored" data-anchor-id="rlhf-finetuning-for-strategic-reasoning">RLHF finetuning for strategic reasoning</h4>
+<p>A traditional RLHF pipeline has the following steps</p>
+<ul>
+<li>Gather preference data</li>
+<li>Train a reward model</li>
+<li>Use feedback from the reward model to train the LLM using PPO</li>
+</ul>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="agents/RLHF.png" class="img-fluid figure-img"></p>
+<p></p><figcaption class="figure-caption">A standard RLHF pipeline</figcaption><p></p>
+</figure>
+</div>
+<p>We adapt this pipeline for training LLM agents to play strategic games. Instead of gathering preference data and then training a reward model, we directly train a Deep Q Network model using self play. This Deep Q Network model will then be used to provide reward values for responses from the LLM.</p>
+<p>The whole pipeline is as shown below:</p>
+<ul>
+<li>Train DQN using self-play to play games from the Open Spiel framework</li>
+<li>Evaluate the DQN against random agent and another DQN agent and store it in state buffer</li>
+<li>Generate rewards for state, action pairs in the replay buffer</li>
+<li>Generate prompts for each state, prompt LLM to get it’s response. Extract action using regex</li>
+<li>Use reward from the DQN as feedback, train the LLM using PPO</li>
+</ul>
+<p>The above steps can be repeated for multiple games and a multi-game dataset of state/action pairs along with their rewards can be created. In particular we generate a five game dataset which includes data from the games Tic-Tac-Toe, Kuhn’s Poker, Nim, Liar’s dice, and Pig. The reason we restrict ourselves to these games is that they have an easy structure which makes it relatively simpler to engineer prompts and regexes for them.</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="agents/DQN-RLHF.png" class="img-fluid figure-img"></p>
+<p></p><figcaption class="figure-caption">DQN RLHF pipeline for strategic reasoning over games</figcaption><p></p>
+</figure>
+</div>
+</section>
+<section id="results-1" class="level4">
+<h4 class="anchored" data-anchor-id="results-1">Results</h4>
+<table class="table">
+<colgroup>
+<col style="width: 31%">
+<col style="width: 37%">
+<col style="width: 31%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Normalized Relative Advantage</th>
+<th>RLHF LLAMA2 (only ticatac toe data)</th>
+<th>RLHF LLAMA2 (Multi-Game Data)</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>VS LLAMA2</td>
+<td>0.18</td>
+<td>0.16</td>
+</tr>
+</tbody>
+</table>
+</section>
+</section>
+</section>
+<section id="visualizations" class="level2">
+<h2 class="anchored" data-anchor-id="visualizations">Visualizations</h2>
 <p>Here are some visualizations of LLMs playing against classical AI agents.</p>
 <ul>
 <li>7B parameter LLMs are not great at the tasks as can be seen from the visualizations.</li>
 <li>I’ll soon upload the visualizations for larger LLMs.</li>
 </ul>
+</section>
 <section id="tic-tac-toe-propmt-based-agents" class="level2">
 <h2 class="anchored" data-anchor-id="tic-tac-toe-propmt-based-agents">Tic-Tac-Toe, Propmt-based Agents</h2>
 <ul>
@@ -235,42 +416,33 @@ gtag('config', 'G-6C8LEPK16T', { 'anonymize_ip': true});
 </div>
 
 
-<section id="RLHF finetuning for improving performance" class="level2 page-columns page-full">
-  <h2 class="anchored" data-anchor-id="RLHF finetuning for improving performance">RLHF finetuning for strategic reasoning</h2>
-  <section id="llama2_7b" class="level3 page-columns page-full">
-  <h3 class="anchored" data-anchor-id="llama2_7b">llama2_7b</h3>
-  <p>A traditional RLHF pipeline has the following steps</p>
-  <ul type="1">
-  <li>Gather preference data</li>
-  <li>Train a reward model</li>
-  <li>Use feedback from the reward model to train the LLM using PPO</li>
-  </ul>
-  <div class="image-container" style="text-align: center; margin: 20px;">
-    <img src="assets/llm_agents/rlhf/RLHF.png" alt="A standard RLHF pipeline" style= "width: 500px; height: 500px">
-    <div class="caption">A standard RLHF pipeline</div>
-</div>
-  <p>We adapt this pipeline for training LLM agents to play strategic games. Instead of gathering preference data and then training a reward model, we directly 
-    train a Deep Q Network model using self play. This Deep Q Network model will then be used to provide reward values for responses from the LLM. </p>
-  <p> The whole pipeline is as shown below:</p>
-  <ul type="1">
-    <li>Train DQN using self-play to play games from the Open Spiel framework</li>
-    <li>Evaluate the DQN against random agent and another DQN agent and store it in state buffer</li>
-    <li>Generate rewards for state, action pairs in the replay buffer</li>
-    <li>Generate prompts for each state, prompt LLM to get it's response. Extract action using regex</li>>
-    <li>Use reward from the DQN as feedback, train the LLM using PPO</li>
-  </ul>
-  <p> The above steps can be repeated for multiple games and a multi-game dataset of state/action pairs along with their rewards can be created. In particular we generate a five game dataset which includes data from the games Tic-Tac-Toe, Kuhn's Poker, Nim, Liar's dice, and Pig. The reason we restrict ourselves to these games is that they have an easy structure which makes it relatively simpler to engineer prompts and regexes for them.</p>
-  <div class="image-container" style="text-align: center; margin: 20px;">
-    <img src="assets/llm_agents/rlhf/DQN-RLHF.png" alt="DQN RLHF pipeline for strategic reasoning over games" style= "width: 700px; height: 400px;">
-    <div class="caption">DQN RLHF pipeline for strategic reasoning over games</div>
-</div>
-</section>  
-
 
 </section>
 </section>
 
-</main> <!-- /main -->
+<div id="quarto-appendix" class="default"><section class="quarto-appendix-contents" role="doc-bibliography"><h2 class="anchored quarto-appendix-heading">References</h2><div id="refs" class="references csl-bib-body hanging-indent" role="doc-bibliography">
+<div id="ref-duan2024gtbench" class="csl-entry" role="doc-biblioentry">
+Duan, Jinhao, Renming Zhang, James Diffenderfer, Bhavya Kailkhura, Lichao Sun, Elias Stengel-Eskin, Mohit Bansal, Tianlong Chen, and Kaidi Xu. 2024. <span>“Gtbench: Uncovering the Strategic Reasoning Limitations of Llms via Game-Theoretic Evaluations.”</span> <em>arXiv Preprint arXiv:2402.12348</em>.
+</div>
+<div id="ref-huang2024understanding" class="csl-entry" role="doc-biblioentry">
+Huang, Xu, Weiwen Liu, Xiaolong Chen, Xingmei Wang, Hao Wang, Defu Lian, Yasheng Wang, Ruiming Tang, and Enhong Chen. 2024. <span>“Understanding the Planning of LLM Agents: A Survey.”</span> <em>arXiv Preprint arXiv:2402.02716</em>.
+</div>
+<div id="ref-kahneman2011thinking" class="csl-entry" role="doc-biblioentry">
+Kahneman, Daniel. 2011. <em>Thinking, Fast and Slow</em>. macmillan.
+</div>
+<div id="ref-shridhar2020alfworld" class="csl-entry" role="doc-biblioentry">
+Shridhar, Mohit, Xingdi Yuan, Marc-Alexandre Côté, Yonatan Bisk, Adam Trischler, and Matthew Hausknecht. 2020. <span>“Alfworld: Aligning Text and Embodied Environments for Interactive Learning.”</span> <em>arXiv Preprint arXiv:2010.03768</em>.
+</div>
+<div id="ref-thorne2018fever" class="csl-entry" role="doc-biblioentry">
+Thorne, James, Andreas Vlachos, Christos Christodoulopoulos, and Arpit Mittal. 2018. <span>“FEVER: A Large-Scale Dataset for Fact Extraction and VERification.”</span> <em>arXiv Preprint arXiv:1803.05355</em>.
+</div>
+<div id="ref-yang2018hotpotqa" class="csl-entry" role="doc-biblioentry">
+Yang, Zhilin, Peng Qi, Saizheng Zhang, Yoshua Bengio, William W Cohen, Ruslan Salakhutdinov, and Christopher D Manning. 2018. <span>“HotpotQA: A Dataset for Diverse, Explainable Multi-Hop Question Answering.”</span> <em>arXiv Preprint arXiv:1809.09600</em>.
+</div>
+<div id="ref-yao2022webshop" class="csl-entry" role="doc-biblioentry">
+Yao, Shunyu, Howard Chen, John Yang, and Karthik Narasimhan. 2022. <span>“Webshop: Towards Scalable Real-World Web Interaction with Grounded Language Agents.”</span> <em>Advances in Neural Information Processing Systems</em> 35: 20744–57.
+</div>
+</div></section></div></main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">
 window.document.addEventListener("DOMContentLoaded", function (event) {
   const toggleBodyColorMode = (bsSheetEl) => {
