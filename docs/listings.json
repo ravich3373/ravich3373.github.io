@@ -7,13 +7,13 @@
   },
   {
     "listing": "/notes.html",
-    "items": []
+    "items": [
+      "/notes/polocy_gradients.html"
+    ]
   },
   {
     "listing": "/posts.html",
     "items": [
-      "/posts/test.html",
-      "/posts/polocy_gradients.html",
       "/posts/grpe.html",
       "/posts/detr.html"
     ]

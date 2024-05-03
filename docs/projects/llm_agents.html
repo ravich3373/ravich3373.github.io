@@ -6,7 +6,7 @@
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
-<meta name="dcterms.date" content="2024-05-03">
+<meta name="dcterms.date" content="2024-05-02">
 
 <title>Raviteja Chukkapalli - LLMs playing games</title>
 <style>
@@ -88,6 +88,7 @@ gtag('js', new Date());
 gtag('config', 'G-6C8LEPK16T', { 'anonymize_ip': true});
 </script>
 
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
 
 <link rel="stylesheet" href="../styles.css">
 </head>
@@ -141,7 +142,8 @@ gtag('config', 'G-6C8LEPK16T', { 'anonymize_ip': true});
     <h2 id="toc-title">On this page</h2>
    
   <ul>
-  <li><a href="#introduction" id="toc-introduction" class="nav-link active" data-scroll-target="#introduction">Introduction</a></li>
+  <li><a href="#abstracttldr" id="toc-abstracttldr" class="nav-link active" data-scroll-target="#abstracttldr">Abstract/TLDR</a></li>
+  <li><a href="#introduction" id="toc-introduction" class="nav-link" data-scroll-target="#introduction">Introduction</a></li>
   <li><a href="#evaluation" id="toc-evaluation" class="nav-link" data-scroll-target="#evaluation">Evaluation</a></li>
   <li><a href="#architectural-choices-involved-in-llm-based-agent-design" id="toc-architectural-choices-involved-in-llm-based-agent-design" class="nav-link" data-scroll-target="#architectural-choices-involved-in-llm-based-agent-design">Architectural choices involved in LLM Based Agent design</a></li>
   <li><a href="#in-context-methods" id="toc-in-context-methods" class="nav-link" data-scroll-target="#in-context-methods">In-Context Methods</a>
@@ -152,12 +154,7 @@ gtag('config', 'G-6C8LEPK16T', { 'anonymize_ip': true});
   <ul class="collapse">
   <li><a href="#our-approach-1" id="toc-our-approach-1" class="nav-link" data-scroll-target="#our-approach-1">Our-Approach</a></li>
   </ul></li>
-  <li><a href="#visualizations" id="toc-visualizations" class="nav-link" data-scroll-target="#visualizations">Visualizations</a></li>
-  <li><a href="#tic-tac-toe-propmt-based-agents" id="toc-tic-tac-toe-propmt-based-agents" class="nav-link" data-scroll-target="#tic-tac-toe-propmt-based-agents">Tic-Tac-Toe, Propmt-based Agents</a></li>
-  <li><a href="#tic-tac-toe-chain-of-though-prompt-based-agents" id="toc-tic-tac-toe-chain-of-though-prompt-based-agents" class="nav-link" data-scroll-target="#tic-tac-toe-chain-of-though-prompt-based-agents">Tic-Tac-Toe, Chain-of-Though Prompt based Agents</a>
-  <ul class="collapse">
-  <li><a href="#llama2_7b" id="toc-llama2_7b" class="nav-link" data-scroll-target="#llama2_7b">llama2_7b</a></li>
-  </ul></li>
+  <li><a href="#appendix" id="toc-appendix" class="nav-link" data-scroll-target="#appendix">Appendix</a></li>
   </ul>
 </nav>
     </div>
@@ -181,7 +178,7 @@ gtag('config', 'G-6C8LEPK16T', { 'anonymize_ip': true});
     <div>
     <div class="quarto-title-meta-heading">Published</div>
     <div class="quarto-title-meta-contents">
-      <p class="date">May 3, 2024</p>
+      <p class="date">May 2, 2024</p>
     </div>
   </div>
   
@@ -202,6 +199,12 @@ gtag('config', 'G-6C8LEPK16T', { 'anonymize_ip': true});
 </div>
 </div>
 </div>
+<section id="abstracttldr" class="level2">
+<h2 class="anchored" data-anchor-id="abstracttldr">Abstract/TLDR</h2>
+<p>We explored the design space of LLM agents to improve the agent planning capabilities and our initial results show that for In-context based approaches MCTS is a good prior to encode into the prompts and In-weight approaches still outperform in-context approaches.</p>
+<p>We hope to continue with the experiments and refine the in-context MCTS further.</p>
+<p>Code for In-context techniques <a href="https://github.com/ravich3373/GTBench">github</a> and In-weight experiments <a href="https://github.com/lakshayt7/LLM-RLHF-DQN">github</a>.</p>
+</section>
 <section id="introduction" class="level2">
 <h2 class="anchored" data-anchor-id="introduction">Introduction</h2>
 <p>In-context learning and instruction following capabilities of LLMs combined with their large world knowledge made them great a solving system 1<span class="citation" data-cites="kahneman2011thinking">(<a href="#ref-kahneman2011thinking" role="doc-biblioref">Kahneman 2011</a>)</span> tasks. The next obvious question would be to evaluate their performance in tasks that require deliberate thinking and planning i.e.&nbsp;system 2<span class="citation" data-cites="kahneman2011thinking">(<a href="#ref-kahneman2011thinking" role="doc-biblioref">Kahneman 2011</a>)</span> tasks.</p>
@@ -251,6 +254,39 @@ gtag('config', 'G-6C8LEPK16T', { 'anonymize_ip': true});
 <h2 class="anchored" data-anchor-id="in-context-methods">In-Context Methods</h2>
 <section id="our-approach" class="level3">
 <h3 class="anchored" data-anchor-id="our-approach">Our-Approach</h3>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="agents/prmpt_tech.png" class="img-fluid figure-img"></p>
+<p></p><figcaption class="figure-caption">Progression of prompting techniques increasingly encoding planning prior into LLM <span class="citation" data-cites="yao2024tree">(<a href="#ref-yao2024tree" role="doc-biblioref">Yao et al. 2024</a>)</span></figcaption><p></p>
+</figure>
+</div>
+<p>The progression of prompting techniques for planning, i.e.</p>
+<p>Prompt -&gt; CoT (Chain of Thought)-&gt; ToT (Tree of Thought)</p>
+<p>can be seen as an effort to encode the planning prior into the LLM prompts.</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="agents/mcts.png" class="img-fluid figure-img"></p>
+<p></p><figcaption class="figure-caption">Monte Carlo Tree Search <span class="citation" data-cites="swiechowski2023monte">(<a href="#ref-swiechowski2023monte" role="doc-biblioref">Świechowski et al. 2023</a>)</span></figcaption><p></p>
+</figure>
+</div>
+<p>A very strong planning technique that works well with deep learning is Monte Carlo Tree Search (MCTS).</p>
+<p>We try to encode MCTS planning prior into the LLM prompts. We do this by designing prompts for</p>
+<ol type="1">
+<li>Selection</li>
+<li>Expansion and Simulation</li>
+<li>BackPropagation or Learning</li>
+</ol>
+<p>We also initialize an in-context knowledge that is empty at the start and LLM stores its learning into this memory during the course of the game. We call this In-context MCTS.</p>
+<blockquote class="blockquote">
+<p>In-Context MCTS</p>
+</blockquote>
+<p><span class="math display">\[
+\begin{array}{rlr}
+A_t &amp;= \text{Selection}(P_s, \theta, K_t, S_t) \\
+A_{opp} &amp;= \text{Expansion}(P_e, \theta, K, S_t + A_t) \\
+K_{t+1} &amp;= \text{BackProp}(P_t, \theta, K, S_t+A_t+A'_{opp}+A_{opp})
+\end{array}
+\]</span></p>
 <section id="results" class="level4">
 <h4 class="anchored" data-anchor-id="results">Results</h4>
 <table class="table">
@@ -287,6 +323,36 @@ gtag('config', 'G-6C8LEPK16T', { 'anonymize_ip': true});
 </tr>
 </tbody>
 </table>
+</section>
+<section id="progression-of-in-context-knowledge-during-a-game." class="level4">
+<h4 class="anchored" data-anchor-id="progression-of-in-context-knowledge-during-a-game.">Progression of In-Context Knowledge during a game.</h4>
+<ol type="1">
+<li>At the Start of the Game</li>
+</ol>
+<blockquote class="blockquote">
+<p>“”</p>
+</blockquote>
+<ol start="2" type="1">
+<li>After Opponent Makes Fist Move.</li>
+</ol>
+<blockquote class="blockquote">
+<p>The opponent’s move <c2r2> indicates a strategy of controlling the center of the grid, which is a common tactic in Tic Tac Toe as it provides the most opportunities for creating a winning line. This move also suggests that the opponent is willing to take risks, as they chose not to block my potential winning line. This knowledge, combined with the previously gained understanding of the opponent’s dynamic strategy and their focus on creating their own winning lines, suggests that the opponent is a risk-taking, offensive player. This knowledge can be used to anticipate the opponent’s moves and adjust my strategy accordingly, focusing on both blocking their potential winning lines and creating my own.</c2r2></p>
+</blockquote>
+<ol start="3" type="1">
+<li>After Losing the game to the Opponent.</li>
+</ol>
+<blockquote class="blockquote">
+<p>The opponent’s move <c2r3> shows a strategic shift towards controlling the corners and edges of the grid. This move indicates that the opponent is not only focused on blocking my potential winning lines but also on creating their own. The opponent’s strategy seems to be dynamic, adapting based on the game’s progression. This knowledge, combined with the previously gained understanding, suggests that the opponent is a risk-taker who can change their strategy as needed. This knowledge can be used to anticipate the opponent’s moves and adjust my strategy accordingly. It is crucial to not only focus on blocking the opponent’s potential winning lines but also on creating my own. Additionally, it is important to consider the corners and edges of the grid as potential winning lines, as the opponent has shown a tendency to control these areas.</c2r3></p>
+</blockquote>
+</section>
+<section id="conclusion-in-context" class="level4">
+<h4 class="anchored" data-anchor-id="conclusion-in-context">Conclusion (In-Context)</h4>
+<ol type="1">
+<li>Prompting performance often does not transfer across LLMs.</li>
+<li>Knowledge in IC-MCTS becomes opponent specific. Memory needs to be persistent across multiple games and multiple opponents to learn a generic/useful strategy.</li>
+<li>Computationally expensive at test time.</li>
+<li>Current approaches are fragile and break easily.</li>
+</ol>
 </section>
 </section>
 </section>
@@ -349,18 +415,29 @@ gtag('config', 'G-6C8LEPK16T', { 'anonymize_ip': true});
 </tbody>
 </table>
 </section>
+<section id="conclusion-in-weight-methods" class="level4">
+<h4 class="anchored" data-anchor-id="conclusion-in-weight-methods">Conclusion (In-weight Methods)</h4>
+<ol type="1">
+<li>Limited generalization across games, however can help if games are similar</li>
+<li>Expensive and time consuming need to finetune large number of parameters at train time</li>
+<li>Lightweight at inference time</li>
+<li>Not possible for closed source LLMs</li>
+</ol>
 </section>
 </section>
-<section id="visualizations" class="level2">
-<h2 class="anchored" data-anchor-id="visualizations">Visualizations</h2>
+</section>
+<section id="appendix" class="level2 page-columns page-full">
+<h2 class="anchored" data-anchor-id="appendix">Appendix</h2>
+<section id="visualizations" class="level4">
+<h4 class="anchored" data-anchor-id="visualizations">Visualizations</h4>
 <p>Here are some visualizations of LLMs playing against classical AI agents.</p>
 <ul>
 <li>7B parameter LLMs are not great at the tasks as can be seen from the visualizations.</li>
 <li>I’ll soon upload the visualizations for larger LLMs.</li>
 </ul>
 </section>
-<section id="tic-tac-toe-propmt-based-agents" class="level2">
-<h2 class="anchored" data-anchor-id="tic-tac-toe-propmt-based-agents">Tic-Tac-Toe, Propmt-based Agents</h2>
+<section id="tic-tac-toe-propmt-based-agents" class="level4">
+<h4 class="anchored" data-anchor-id="tic-tac-toe-propmt-based-agents">Tic-Tac-Toe, Propmt-based Agents</h4>
 <ul>
 <li>Game: Tic-Tac-Toe</li>
 <li>LLMs: LLAMA2 7B, MISTRAL 7B</li>
@@ -402,10 +479,11 @@ gtag('config', 'G-6C8LEPK16T', { 'anonymize_ip': true});
 </figure>
 </div>
 </section>
-<section id="tic-tac-toe-chain-of-though-prompt-based-agents" class="level2 page-columns page-full">
-<h2 class="anchored" data-anchor-id="tic-tac-toe-chain-of-though-prompt-based-agents">Tic-Tac-Toe, Chain-of-Though Prompt based Agents</h2>
-<section id="llama2_7b" class="level3 page-columns page-full">
-<h3 class="anchored" data-anchor-id="llama2_7b">llama2_7b</h3>
+<section id="tic-tac-toe-chain-of-though-prompt-based-agents" class="level4">
+<h4 class="anchored" data-anchor-id="tic-tac-toe-chain-of-though-prompt-based-agents">Tic-Tac-Toe, Chain-of-Though Prompt based Agents</h4>
+</section>
+<section id="llama2_7b" class="level4 page-columns page-full">
+<h4 class="anchored" data-anchor-id="llama2_7b">llama2_7b</h4>
 <ol type="1">
 <li>Topmost paragraph is the system prompt.</li>
 <li>Second paragraph is the user prompt.</li>
@@ -433,6 +511,9 @@ Kahneman, Daniel. 2011. <em>Thinking, Fast and Slow</em>. macmillan.
 <div id="ref-shridhar2020alfworld" class="csl-entry" role="doc-biblioentry">
 Shridhar, Mohit, Xingdi Yuan, Marc-Alexandre Côté, Yonatan Bisk, Adam Trischler, and Matthew Hausknecht. 2020. <span>“Alfworld: Aligning Text and Embodied Environments for Interactive Learning.”</span> <em>arXiv Preprint arXiv:2010.03768</em>.
 </div>
+<div id="ref-swiechowski2023monte" class="csl-entry" role="doc-biblioentry">
+Świechowski, Maciej, Konrad Godlewski, Bartosz Sawicki, and Jacek Mańdziuk. 2023. <span>“Monte Carlo Tree Search: A Review of Recent Modifications and Applications.”</span> <em>Artificial Intelligence Review</em> 56 (3): 2497–2562.
+</div>
 <div id="ref-thorne2018fever" class="csl-entry" role="doc-biblioentry">
 Thorne, James, Andreas Vlachos, Christos Christodoulopoulos, and Arpit Mittal. 2018. <span>“FEVER: A Large-Scale Dataset for Fact Extraction and VERification.”</span> <em>arXiv Preprint arXiv:1803.05355</em>.
 </div>
@@ -441,6 +522,9 @@ Yang, Zhilin, Peng Qi, Saizheng Zhang, Yoshua Bengio, William W Cohen, Ruslan Sa
 </div>
 <div id="ref-yao2022webshop" class="csl-entry" role="doc-biblioentry">
 Yao, Shunyu, Howard Chen, John Yang, and Karthik Narasimhan. 2022. <span>“Webshop: Towards Scalable Real-World Web Interaction with Grounded Language Agents.”</span> <em>Advances in Neural Information Processing Systems</em> 35: 20744–57.
+</div>
+<div id="ref-yao2024tree" class="csl-entry" role="doc-biblioentry">
+Yao, Shunyu, Dian Yu, Jeffrey Zhao, Izhak Shafran, Tom Griffiths, Yuan Cao, and Karthik Narasimhan. 2024. <span>“Tree of Thoughts: Deliberate Problem Solving with Large Language Models.”</span> <em>Advances in Neural Information Processing Systems</em> 36.
 </div>
 </div></section></div></main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">
