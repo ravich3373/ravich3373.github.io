@@ -249,6 +249,28 @@ gtag('config', 'G-6C8LEPK16T', { 'anonymize_ip': true});
 <p></p><figcaption class="figure-caption">As Surveyed by <span class="citation" data-cites="huang2024understanding">(<a href="#ref-huang2024understanding" role="doc-biblioref">Huang et al. 2024</a>)</span></figcaption><p></p>
 </figure>
 </div>
+<section id="task-decomposition" class="level4">
+<h4 class="anchored" data-anchor-id="task-decomposition">Task Decomposition</h4>
+<p>Almost all of the approaches use this technique. As the name says the prompts are designed to prompt the LLM to decompose the given task into subtasks and then tackle them.</p>
+<p>ReAct, a prominent decomposition-based approach, provides in-context examples decomposing a couple of tasks, and expects the LLM would solve the problem similarly.</p>
+</section>
+<section id="multi-plan-selection" class="level4">
+<h4 class="anchored" data-anchor-id="multi-plan-selection">Multi-Plan Selection</h4>
+<p>Query the LLM multiple times to generate (unique) plans (use low temperature). and select one of the plans using the LLM itself or an external critique.</p>
+</section>
+<section id="external-planner-aided-planning" class="level4">
+<h4 class="anchored" data-anchor-id="external-planner-aided-planning">External-Planner aided planning</h4>
+<p>These approaches usually query the LLM with problem definition to generate problem PDDL (Planning Domain Definition Language) file assuming problem domain file is already present and use external planners like <a href="https://www.fast-downward.org/">Downward</a> to generate the plan.</p>
+<p>Newer approaches also try generating domain files through LLM.</p>
+</section>
+<section id="reflection-and-refinement" class="level4">
+<h4 class="anchored" data-anchor-id="reflection-and-refinement">Reflection and Refinement</h4>
+<p>Use an external critic or the LLM itself to critic the generated plan and query the LLM to improve the plan according to the critique.</p>
+</section>
+<section id="memory-aided-planning" class="level4">
+<h4 class="anchored" data-anchor-id="memory-aided-planning">Memory Aided Planning</h4>
+<p>There are diverse approaches that use external memory, some use it to store experiences and then retrieve relevant experiences during Test time similar to RAG. Some try to do full Reinforcement Learning by storing states and action values in memory.</p>
+</section>
 </section>
 <section id="in-context-methods" class="level2">
 <h2 class="anchored" data-anchor-id="in-context-methods">In-Context Methods</h2>
@@ -336,13 +358,13 @@ K_{t+1} &amp;= \text{BackProp}(P_t, \theta, K, S_t+A_t+A'_{opp}+A_{opp})
 <li>After Opponent Makes Fist Move.</li>
 </ol>
 <blockquote class="blockquote">
-<p>The opponent’s move <c2r2> indicates a strategy of controlling the center of the grid, which is a common tactic in Tic Tac Toe as it provides the most opportunities for creating a winning line. This move also suggests that the opponent is willing to take risks, as they chose not to block my potential winning line. This knowledge, combined with the previously gained understanding of the opponent’s dynamic strategy and their focus on creating their own winning lines, suggests that the opponent is a risk-taking, offensive player. This knowledge can be used to anticipate the opponent’s moves and adjust my strategy accordingly, focusing on both blocking their potential winning lines and creating my own.</c2r2></p>
+<p>The opponent’s move &lt;C2R2&gt; indicates a strategy of controlling the center of the grid, which is a common tactic in Tic Tac Toe as it provides the most opportunities for creating a winning line. This move also suggests that the opponent is willing to take risks, as they chose not to block my potential winning line. This knowledge, combined with the previously gained understanding of the opponent’s dynamic strategy and their focus on creating their own winning lines, suggests that the opponent is a risk-taking, offensive player. This knowledge can be used to anticipate the opponent’s moves and adjust my strategy accordingly, focusing on both blocking their potential winning lines and creating my own.</p>
 </blockquote>
 <ol start="3" type="1">
 <li>After Losing the game to the Opponent.</li>
 </ol>
 <blockquote class="blockquote">
-<p>The opponent’s move <c2r3> shows a strategic shift towards controlling the corners and edges of the grid. This move indicates that the opponent is not only focused on blocking my potential winning lines but also on creating their own. The opponent’s strategy seems to be dynamic, adapting based on the game’s progression. This knowledge, combined with the previously gained understanding, suggests that the opponent is a risk-taker who can change their strategy as needed. This knowledge can be used to anticipate the opponent’s moves and adjust my strategy accordingly. It is crucial to not only focus on blocking the opponent’s potential winning lines but also on creating my own. Additionally, it is important to consider the corners and edges of the grid as potential winning lines, as the opponent has shown a tendency to control these areas.</c2r3></p>
+<p>The opponent’s move &lt;C2R3&gt; shows a strategic shift towards controlling the corners and edges of the grid. This move indicates that the opponent is not only focused on blocking my potential winning lines but also on creating their own. The opponent’s strategy seems to be dynamic, adapting based on the game’s progression. This knowledge, combined with the previously gained understanding, suggests that the opponent is a risk-taker who can change their strategy as needed. This knowledge can be used to anticipate the opponent’s moves and adjust my strategy accordingly. It is crucial to not only focus on blocking the opponent’s potential winning lines but also on creating my own. Additionally, it is important to consider the corners and edges of the grid as potential winning lines, as the opponent has shown a tendency to control these areas.</p>
 </blockquote>
 </section>
 <section id="conclusion-in-context" class="level4">
