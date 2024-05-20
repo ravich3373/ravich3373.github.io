@@ -11,7 +11,7 @@
     "href": "index.html",
     "title": "Raviteja Chukkapalli",
     "section": "",
-    "text": "ABOUT ME\nMaster’s student in computer science at NYU Courant. I hate Dota 2. Making LLMs play games. Checkout Random.\n\nPreviously:\n\nComputer vision engineer, Vimaan, Bangalore.\nEngineer, Tonbo Imaging, Bangalore.\nB.E. BITS Pilani.\n\n\n\nPreviously Worked on:\n\nComputer Vision\n\nHuman Object interaction\nObject detection\nRe-Identification\nMulti-camera object tracking\n\nVision + language\n\nMulti-Object Scene Generation (Diffusion Models)\nImage retrieval\nHuman Object Interaction\nOCR\n\nEngineering\n\nModel optimization\nDeployment on edge devices\nDataset collection, annotation."
+    "text": "ABOUT ME\nMaster’s student in computer science at NYU Courant. I hate Dota 2. Making LLMs play games. Checkout Projects.\n\nPreviously:\n\nComputer vision engineer, Vimaan, Bangalore.\nEngineer, Tonbo Imaging, Bangalore.\nB.E. BITS Pilani.\n\n\n\nPreviously Worked on:\n\nComputer Vision\n\nHuman Object interaction\nObject detection\nRe-Identification\nMulti-camera object tracking\n\nVision + language\n\nMulti-Object Scene Generation (Diffusion Models)\nImage retrieval\nHuman Object Interaction\nOCR\n\nEngineering\n\nModel optimization\nDeployment on edge devices\nDataset collection, annotation."
   },
   {
     "objectID": "notes.html",
@@ -93,7 +93,7 @@
   {
     "objectID": "projects.html",
     "href": "projects.html",
-    "title": "Random",
+    "title": "Projects",
     "section": "",
     "text": "LLMs playing games\n\n\n\n\n\n\n\nRandom\n\n\nVisualization\n\n\n\n\n\n\n\n\n\n\n\nMay 2, 2024\n\n\n\n\n\n\nNo matching items"
   },
