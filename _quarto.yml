@@ -21,6 +21,7 @@ website:
     right:
       - notes.qmd
       - posts.qmd
+      - projects.qmd
 
 format:
   html:

@@ -9,7 +9,7 @@ about:
       href: https://twitter.com/Ravi_CRT
     - icon: linkedin
       text: Linkedin
-      href: https://www.linkedin.com/in/ravi-teja-b504aba7/
+      href: https://www.linkedin.com/in/raviteja-chukkapalli-b504aba7/
     - icon: github
       text: Github
       href: https://github.com/ravich3373
@@ -19,16 +19,16 @@ about:
 
 # ABOUT ME
 
-Master's student in computer science at NYU Courant.
+Master's student in computer science at NYU Courant. I hate Dota 2. Making LLMs play games. Checkout [Projects](projects.qmd).
 
 ### Previously:
 
 * Computer vision engineer, Vimaan, Bangalore.
 * Engineer, Tonbo Imaging, Bangalore.
-* B.E. BITS Pilani, Hyderabad.
+* B.E. BITS Pilani.
 
 
-### Worked on:
+### Previously Worked on:
 
 * Computer Vision
   * Human Object interaction
@@ -37,6 +37,7 @@ Master's student in computer science at NYU Courant.
   * Multi-camera object tracking
 
 * Vision + language
+  * Multi-Object Scene Generation (Diffusion Models)
   * Image retrieval
   * Human Object Interaction
   * OCR
