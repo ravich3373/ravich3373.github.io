@@ -8,7 +8,7 @@
 
 <meta name="dcterms.date" content="2024-01-30">
 
-<title>Raviteja Chukkapalli - Causal Inference</title>
+<title>Raviteja Chukkapalli - Causal Inference Primer</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -123,7 +123,16 @@ gtag('config', 'G-6C8LEPK16T', { 'anonymize_ip': true});
     <h2 id="toc-title">On this page</h2>
    
   <ul>
-  <li><a href="#pgms-probabilistic-graphical-models" id="toc-pgms-probabilistic-graphical-models" class="nav-link active" data-scroll-target="#pgms-probabilistic-graphical-models">PGMs: Probabilistic Graphical Models</a></li>
+  <li><a href="#correlation-independence-and-causation" id="toc-correlation-independence-and-causation" class="nav-link active" data-scroll-target="#correlation-independence-and-causation">Correlation, Independence and Causation</a></li>
+  <li><a href="#confounders-colliders-and-mediators" id="toc-confounders-colliders-and-mediators" class="nav-link" data-scroll-target="#confounders-colliders-and-mediators">Confounders, colliders and mediators</a>
+  <ul class="collapse">
+  <li><a href="#observed-confounder" id="toc-observed-confounder" class="nav-link" data-scroll-target="#observed-confounder">observed Confounder</a></li>
+  <li><a href="#un-observed-confounder" id="toc-un-observed-confounder" class="nav-link" data-scroll-target="#un-observed-confounder">un-observed Confounder</a></li>
+  <li><a href="#observed-collider" id="toc-observed-collider" class="nav-link" data-scroll-target="#observed-collider">Observed collider</a></li>
+  <li><a href="#un-observed-collider" id="toc-un-observed-collider" class="nav-link" data-scroll-target="#un-observed-collider">Un-Observed collider</a></li>
+  <li><a href="#observed-mediator" id="toc-observed-mediator" class="nav-link" data-scroll-target="#observed-mediator">Observed Mediator</a></li>
+  <li><a href="#un-observed-mediator" id="toc-un-observed-mediator" class="nav-link" data-scroll-target="#un-observed-mediator">Un-Observed Mediator</a></li>
+  </ul></li>
   </ul>
 </nav>
     </div>
@@ -132,7 +141,7 @@ gtag('config', 'G-6C8LEPK16T', { 'anonymize_ip': true});
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title">Causal Inference</h1>
+<h1 class="title">Causal Inference Primer</h1>
   <div class="quarto-categories">
     <div class="quarto-category">Book</div>
   </div>
@@ -156,16 +165,138 @@ gtag('config', 'G-6C8LEPK16T', { 'anonymize_ip': true});
 
 </header>
 
-<section id="pgms-probabilistic-graphical-models" class="level2">
-<h2 class="anchored" data-anchor-id="pgms-probabilistic-graphical-models">PGMs: Probabilistic Graphical Models</h2>
+<!-- ## PGMs: Probabilistic Graphical Models
+
+1. A PGM is a directed graph $G = (V, E)$.
+2. Each node $v \in V$ is a random variable.
+3. An edge $e = (v_s, v_e)$ represents a dependence of $v_e$ on $v_s$.
+4. Let's assume there is no cycle in the graph $G$. -->
+<p>The goal of causal inference is to determine the existence/non-existance of causal relation between two sets of variables (causes and outcomes).</p>
+<p>Before performing causal inference one has to <code>determine the universe</code> in which causal inference has to be performed.</p>
+<p>This universe encapsulates the potential causes and outcomes we are interested in.</p>
+<p>This universe can be described by a <code>Probabilistic graphical model</code> or <code>structural causal model</code>.</p>
+<p>Probabilistic Graphical Models (PGMs) Represented by a directed graph <span class="math inline">\(G = (V, E, P)\)</span>. where each node <span class="math inline">\(v \in V\)</span> is a random variable. Edge <span class="math inline">\(e = (v_s, v_e)\)</span> represents the dependence of <span class="math inline">\(v_e\)</span> on <span class="math inline">\(v_s\)</span>. <span class="math inline">\(P\)</span> represents the set of all conditional probabilities</p>
+<p><span class="math display">\[ \forall v\in V, p_v(v|\text{pa}(v)) \ \text{where, } \text{pa}(v) = \{v' \in V | (v',v)\in E\}\]</span></p>
+<p>In PGMs each note is treated as outputting a probability distribution of the random variables it represents, the nodes in SCMs on the other hand output a <code>sample</code> from the distribution of the random variable. SCMs can be represented by a triplet <span class="math inline">\((V, F, U)\)</span> where, <span class="math inline">\(V\)</span> is the set of random variables, <span class="math inline">\(F\)</span> is a set of deterministic functions, <span class="math inline">\(U\)</span> is a set of exogenous(external) noise variables. Then sampling from a node <span class="math inline">\(v\)</span> can be written as. <span class="math display">\[v \leftarrow f_v(\text{pa}(v), \epsilon_v), \, v\in V,\, f_v\in F,\, \epsilon_v\in U\]</span></p>
+<section id="correlation-independence-and-causation" class="level2">
+<h2 class="anchored" data-anchor-id="correlation-independence-and-causation">Correlation, Independence and Causation</h2>
+<p>Dependence: Two random variables <span class="math inline">\(u,v\)</span> are independent iff</p>
+<p><span class="math display">\[p(u, v) = p(u)p(v)\]</span></p>
+<p>or else <span class="math inline">\(u, v\)</span> are dependent.</p>
+<p>Correlation: Two random variables <span class="math inline">\(u, v\)</span> are correlated iff</p>
+<p><span class="math display">\[\text{cov}(u, v) = \mathbb{E}[(u-\mu_u)(v-\mu_v)] &gt; 0\]</span></p>
+<p>if <span class="math inline">\(\text{cov}(u,v) == 0\)</span> then <span class="math inline">\(u, v\)</span> are not correlated.</p>
+<p>Causation: Random variable <span class="math inline">\(u\)</span> is said to be causing <span class="math inline">\(v\)</span> if there is an edge from <span class="math inline">\(u\)</span> to <span class="math inline">\(v\)</span> in the data-generating process(represented as a PGM or SCM). We will later define measures to identify the strength of this causal effect.</p>
+<p>Correlation, dependence, and causation are not equivalent. In short,</p>
 <ol type="1">
-<li>A PGM is a directed graph <span class="math inline">\(G = (V, E)\)</span>.</li>
-<li>Each node <span class="math inline">\(v \in V\)</span> is a random variable.</li>
-<li>An edge <span class="math inline">\(e = (v_s, v_e)\)</span> represents a dependence of <span class="math inline">\(v_e\)</span> on <span class="math inline">\(v_s\)</span>.</li>
-<li>Let’s assume there is no cycle in the graph <span class="math inline">\(G\)</span>.</li>
+<li>Two independent variables are uncorrelated, but two uncorrelated variables may not be independent.</li>
+<li>Correlation does not imply causation.</li>
+<li>The lack of correlation does not imply the lack of causation.</li>
 </ol>
+</section>
+<section id="confounders-colliders-and-mediators" class="level2">
+<h2 class="anchored" data-anchor-id="confounders-colliders-and-mediators">Confounders, colliders and mediators</h2>
+<ul>
+<li>Statistical dependence between two random variables can exist even when they are not causally related.</li>
+<li>This section analyzes causal and statistical dependence between two variables <span class="math inline">\(u, v\)</span> in all possible atomic situations they can then be composed to determine causal or statistical dependence in more complex graphs.</li>
+<li><code>D-seperation</code> is the process of determining dependence between two variables in a larger PGM given a set of observed nodes.</li>
+</ul>
+<section id="observed-confounder" class="level3">
+<h3 class="anchored" data-anchor-id="observed-confounder">observed Confounder</h3>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="./causal/obs_conf.png" class="img-fluid figure-img"></p>
+<p></p><figcaption class="figure-caption">SCM</figcaption><p></p>
+</figure>
+</div>
+<p>Since <span class="math inline">\(w\)</span> is observed <span class="math inline">\(u, v\)</span> are conditionally <code>independent</code>. Also as seen from the SCM they also are <code>not causally related</code>.</p>
+<p><span class="math inline">\(u \leftarrow w \rightarrow v\)</span> is said to be <code>closed</code>(due to independence).</p>
+<p><span class="math display">\[p(u,v |w) = p(u|w) p(v|w)\]</span></p>
+</section>
+<section id="un-observed-confounder" class="level3">
+<h3 class="anchored" data-anchor-id="un-observed-confounder">un-observed Confounder</h3>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="./causal/unobs_conf.png" class="img-fluid figure-img"></p>
+<p></p><figcaption class="figure-caption">SCM</figcaption><p></p>
+</figure>
+</div>
+<p><span class="math display">\[ p(u,v) = \int_w p(u|w)p(v|w)p(w)dw \neq q(u)q(v)\]</span></p>
+<p>Here <span class="math inline">\(u, v\)</span> are <code>not independent</code>, they are also not conditionally independent. They are dependent and <code>causally not related</code>.</p>
+<p><span class="math inline">\(u \leftarrow w \rightarrow v\)</span> is said to be <code>open</code> (due to dependence).</p>
+<p>Because of this effect <span class="math inline">\(w\)</span> is called a confounder.</p>
+</section>
+<section id="observed-collider" class="level3">
+<h3 class="anchored" data-anchor-id="observed-collider">Observed collider</h3>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="./causal/obs_collider.png" class="img-fluid figure-img"></p>
+<p></p><figcaption class="figure-caption">SCM</figcaption><p></p>
+</figure>
+</div>
+<p><span class="math display">\[
+\begin{array}{rlr}
+  p(u,v,w) &amp;= p(w) p(u,v|w) \\
+  p(u, v|w) &amp;= \frac{p(u,v,w)}{p(w)} \\
+  p(u,v|w) &amp;= \frac{p(u)p(v,w|u)}{\int_u \int_v p(u)p(v)p(w|u,v)} \\
+  p(u,v|w) &amp;= \frac{p(u)p(v)p(w|u,v)}{\int_u \int_v p(u)p(v)p(w|u,v)}
+  &amp;\neq q(u)q(v)
+\end{array}
+\]</span></p>
+<p>observed collider results in <code>explaining-away effect</code>.</p>
+<p><span class="math inline">\(u, v\)</span> are <code>not independent</code>, there is <code>no causal relation</code> between them as seen from SCM above.</p>
+<p><span class="math inline">\(u \rightarrow w \leftarrow v\)</span> is <code>open</code>.</p>
+</section>
+<section id="un-observed-collider" class="level3">
+<h3 class="anchored" data-anchor-id="un-observed-collider">Un-Observed collider</h3>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="./causal/unobs_collider.png" class="img-fluid figure-img"></p>
+<p></p><figcaption class="figure-caption">SCM</figcaption><p></p>
+</figure>
+</div>
+<p><span class="math display">\[
+\begin{array}{rlr}
+  p(u, v) &amp;= \int_w p(w| u,v)p(u)p(v)dw \\
+  &amp;= p(u)p(v) \int_w p(w| u, v) dw \\
+  &amp;= p(u)p(v) K \\
+  &amp;= q(u)q(v)
+\end{array}
+\]</span></p>
+<p><span class="math inline">\(u, v\)</span> are <code>independent</code>.</p>
+<p><code>No causal dependence</code>.</p>
+<p><span class="math inline">\(u \rightarrow w \leftarrow v\)</span> is <code>closed</code>.</p>
+</section>
+<section id="observed-mediator" class="level3">
+<h3 class="anchored" data-anchor-id="observed-mediator">Observed Mediator</h3>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="./causal/obs_med.png" class="img-fluid figure-img"></p>
+<p></p><figcaption class="figure-caption">SCM</figcaption><p></p>
+</figure>
+</div>
+<p><span class="math display">\[p(u,v|w) = p(u) p(w|u) p(v|w) = q(v|w) q(u|w) \]</span></p>
+<p><code>u and v are independent conditioned on w</code>.</p>
+<p><span class="math inline">\(u \rightarrow w \rightarrow v\)</span> is <code>closed</code> as w is fixed and changing u does not change v anymore as w is fixed.</p>
+<p>Therefore, <code>independent</code> and <code>no causal dependence</code>.</p>
+</section>
+<section id="un-observed-mediator" class="level3">
+<h3 class="anchored" data-anchor-id="un-observed-mediator">Un-Observed Mediator</h3>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="./causal/unobs_medi.png" class="img-fluid figure-img"></p>
+<p></p><figcaption class="figure-caption">SCM</figcaption><p></p>
+</figure>
+</div>
+<p><span class="math display">\[
+p(u,v) = \int p(u)p(w|u)p(v|w) dw = p(u) \int p(w|u)p(v|w) dw = p(u) q(v|u)
+\]</span></p>
+<p>Therefore <span class="math inline">\(u,v\)</span> are <code>not independent</code>.</p>
+<p>Change in u will change the distribution/value of w which will propagate to v. So, <code>u causally affects v</code>.</p>
+<!-- ## Causal Effects -->
 
 
+</section>
 </section>
 
 </main> <!-- /main -->
